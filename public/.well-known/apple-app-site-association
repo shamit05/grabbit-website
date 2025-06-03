@@ -1,0 +1,27 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "Y6WUS7R97A.com.shamit.grabbit"
+        ],
+        "components": [
+          {
+            "/": "/app/*",
+            "comment": "Matches any URL that starts with /app/"
+          }
+        ]
+      }
+    ]
+  },
+  "activitycontinuation": {
+    "apps": [
+      "Y6WUS7R97A.com.shamit.grabbit"
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "Y6WUS7R97A.com.shamit.grabbit"
+    ]
+  }
+}
