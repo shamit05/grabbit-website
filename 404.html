@@ -5,35 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>404 – Page Not Found | Grabbit</title>
-    <!-- include the same CSS as your home page -->
-    <link rel="stylesheet" href="/css/style.css" />
+    <meta name="description" content="Page not found. This page may have moved or doesn't exist.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="/favicon.ico" />
-    <script>
-    // This runs on unknown routes
-    const path = window.location.pathname;
-
-    if (path.startsWith("/app")) {
-      // Redirect to /download
-      window.location.replace("/download?from=" + encodeURIComponent(path));
-    } else {
-      // Show regular 404
-      document.write("<h1>404 - Page Not Found</h1>");
-    }
-  </script>
 </head>
 <body>
-    <!-- Navbar (same as on your home page) -->
-    <header>
-        <nav class="navbar">
-            <div class="container">
-                <a class="navbar-brand" href="/">Grabbit</a>
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/about.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contact.html">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/blog.html">Blog</a></li>
-                </ul>
-            </div>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="logo">
+            <img src="assets/GRABBIT_no_background_logo.png" alt="Grabbit Logo">
+            <a href="index.html" class="logo-text">grabbit</a>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#team">Our Team</a>
+            <a href="index.html#contact">Contact</a>
+            <a href="download.html" class="download-btn">
+                <i class="fab fa-apple"></i>
+                Download
+            </a>
         </nav>
     </header>
 
@@ -46,7 +39,41 @@
         </div>
     </main>
 
-    <!-- include the same JS as your home page -->
-    <script src="/js/main.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <span>&copy; 2025 Grabbit. All rights reserved.</span>
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+                <a href="index.html">Back to Home</a>
+            </div>
+            <div class="social-links">
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // App redirect logic for 404 page
+        (function() {
+            const currentPath = window.location.pathname;
+            const currentSearch = window.location.search;
+            
+            // Check if this is an app route that should redirect to download page
+            if (currentPath && currentPath.startsWith('/app')) {
+                // Preserve the original app path and any query parameters
+                const redirectUrl = '/download.html?redirected_from=' + encodeURIComponent(currentPath) + 
+                                  (currentSearch ? '&' + currentSearch.substring(1) : '');
+                
+                console.log('Redirecting app route:', currentPath, 'to:', redirectUrl);
+                window.location.href = redirectUrl;
+            }
+        })();
+    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
