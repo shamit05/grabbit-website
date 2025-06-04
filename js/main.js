@@ -1,9 +1,9 @@
 // Grabbit Website Shared JavaScript
 
-// Header scroll effect
+// Header scroll effect with pill navbar
 window.addEventListener('scroll', () => {
     const header = document.getElementById('header');
-    if (header && window.scrollY > 100) {
+    if (header && window.scrollY > 50) {
         header.classList.add('scrolled');
     } else if (header) {
         header.classList.remove('scrolled');
@@ -51,11 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle form submission if form exists
     const form = document.querySelector('form');
     if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! We\'ll get back to you soon.');
-            this.reset();
-        });
+        // form.addEventListener('submit', function(e) {
+        //     e.preventDefault();
+        //     alert('Thank you for your message! We\'ll get back to you soon.');
+        //     this.reset();
+        // });
     }
 
     // App Store link tracking
@@ -66,6 +66,31 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('App Store download initiated');
         });
     }
+
+    // Handle email list nav button clicks
+    const emailListBtns = document.querySelectorAll('#email-list-nav-btn, #email-list-mobile-btn');
+    emailListBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Scroll to email list section
+            const emailSection = document.querySelector('.email-list-section');
+            if (emailSection) {
+                emailSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                
+                // Focus on email input after scroll
+                setTimeout(() => {
+                    const emailInput = emailSection.querySelector('input[type="email"]');
+                    if (emailInput) {
+                        emailInput.focus();
+                    }
+                }, 600);
+            }
+        });
+    });
 });
 
 // Parallax effect for floating shapes
@@ -96,60 +121,182 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Handle invite banner and app redirects
-function handleInviteBanner() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const inviteCode = urlParams.get('invite');
-    const groupName = urlParams.get('groupName');
-    const from = urlParams.get('from');
-    
-    // Show invite banner if we have invite parameters
-    if (inviteCode && groupName) {
-        showInviteBanner(groupName, inviteCode);
-    }
-    
-    // Handle app route redirects
-    const path = window.location.pathname;
-    if (path.startsWith('/app')) {
-        // Redirect to download page with all query parameters
-        const currentUrl = new URL(window.location);
-        const downloadUrl = new URL('/download.html', window.location.origin);
-        
-        // Copy all search parameters
-        currentUrl.searchParams.forEach((value, key) => {
-            downloadUrl.searchParams.set(key, value);
+// Hamburger menu functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.querySelector('.hamburger');
+    const mobileOverlay = document.querySelector('.mobile-menu-overlay');
+    const body = document.body;
+
+    if (hamburger && mobileOverlay) {
+        hamburger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            hamburger.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            body.style.overflow = mobileOverlay.classList.contains('active') ? 'hidden' : '';
         });
-        
-        // Add the original path as 'from' parameter if not already present
-        if (!downloadUrl.searchParams.has('from')) {
-            downloadUrl.searchParams.set('from', path);
-        }
-        
-        window.location.replace(downloadUrl.toString());
+
+        // Close menu when clicking on a link
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                body.style.overflow = '';
+            });
+        });
+
+        // Close menu when clicking outside
+        mobileOverlay.addEventListener('click', function(e) {
+            if (e.target === mobileOverlay) {
+                hamburger.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
     }
+
+    // Form handling
+    handleForms();
+    
+    // Handle invite banner
+    handleInviteBanner();
+    
+    // Handle modals
+    handleModals();
+});
+
+// Form handling function
+function handleForms() {
+    // Handle email list form
+    const emailForms = document.querySelectorAll('form[action*="google.com/forms"]');
+    emailForms.forEach(form => {
+        if (form.querySelector('input[name="entry.181124231"]')) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = form.querySelector('input[name="entry.181124231"]').value;
+                
+                if (email) {
+                    // Submit to Google Forms in background
+                    const formData = new FormData();
+                    formData.append('entry.181124231', email);
+                    
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        mode: 'no-cors'
+                    }).then(() => {
+                        showSuccessMessage('Thanks for joining!', 'We\'ll keep you updated on Grabbit\'s progress.');
+                        form.reset();
+                    }).catch(() => {
+                        showSuccessMessage('Thanks for joining!', 'We\'ll keep you updated on Grabbit\'s progress.');
+                        form.reset();
+                    });
+                }
+            });
+        }
+    });
+
+    // Handle contact form
+    const contactForms = document.querySelectorAll('form[action*="formResponse"]');
+    contactForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors'
+            }).then(() => {
+                showSuccessMessage('Message sent!', 'Thanks for reaching out. We\'ll get back to you soon.');
+                form.reset();
+            }).catch(() => {
+                showSuccessMessage('Message sent!', 'Thanks for reaching out. We\'ll get back to you soon.');
+                form.reset();
+            });
+        });
+    });
 }
 
-function showInviteBanner(groupName, inviteCode) {
-    const inviteBanner = document.querySelector('.invite-banner');
-    if (inviteBanner) {
-        const decodedGroupName = decodeURIComponent(groupName.replace(/\+/g, ' '));
+// Success message function
+function showSuccessMessage(title, message) {
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'success-overlay';
+    
+    // Create success message
+    const successDiv = document.createElement('div');
+    successDiv.className = 'success-message';
+    successDiv.innerHTML = `
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>${title}</h3>
+        <p>${message}</p>
+    `;
+    
+    document.body.appendChild(overlay);
+    document.body.appendChild(successDiv);
+    
+    // Show with animation
+    setTimeout(() => {
+        overlay.classList.add('show');
+        successDiv.classList.add('show');
+    }, 10);
+    
+    // Hide after 3 seconds
+    setTimeout(() => {
+        overlay.classList.remove('show');
+        successDiv.classList.remove('show');
         
-        inviteBanner.querySelector('h3').innerHTML = `
-            <i class="fas fa-users"></i>
-            You're invited to join "${decodedGroupName}"!
-        `;
+        setTimeout(() => {
+            document.body.removeChild(overlay);
+            document.body.removeChild(successDiv);
+        }, 300);
+    }, 3000);
+    
+    // Allow clicking to close
+    overlay.addEventListener('click', () => {
+        overlay.classList.remove('show');
+        successDiv.classList.remove('show');
         
-        inviteBanner.querySelector('p').textContent = 
-            `Download the Grabbit app to accept this group invitation and start collaborating with your community.`;
+        setTimeout(() => {
+            if (document.body.contains(overlay)) document.body.removeChild(overlay);
+            if (document.body.contains(successDiv)) document.body.removeChild(successDiv);
+        }, 300);
+    });
+}
+
+// Handle invite banner functionality
+function handleInviteBanner() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const inviteBanner = document.getElementById('invite-banner');
+    
+    if (inviteBanner && (urlParams.has('invite') || urlParams.has('groupName') || urlParams.has('from'))) {
+        const groupName = urlParams.get('groupName') || 'a group';
         
+        // Update banner content
+        const bannerTitle = inviteBanner.querySelector('h3');
+        const bannerText = inviteBanner.querySelector('p');
+        
+        if (bannerTitle && bannerText) {
+            bannerTitle.innerHTML = `<i class="fas fa-users"></i> You're invited to join ${decodeURIComponent(groupName)}!`;
+            bannerText.textContent = 'Download the Grabbit app to accept this group invitation and start collaborating with your community.';
+        }
+        
+        // Show banner
         inviteBanner.classList.add('show');
+        document.body.classList.add('invite-shown');
         
-        // Update the download button to include invite parameters
-        const appStoreBtn = document.querySelector('.app-store-btn');
-        if (appStoreBtn) {
-            const originalHref = appStoreBtn.href;
-            // For now, we'll keep the same App Store link, but you could add campaign parameters
-            // appStoreBtn.href = originalHref + '?invite=' + inviteCode + '&groupName=' + groupName;
+        // Handle close button
+        const closeBtn = inviteBanner.querySelector('.banner-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                inviteBanner.classList.remove('show');
+                document.body.classList.remove('invite-shown');
+            });
         }
     }
 }
@@ -169,4 +316,60 @@ function updateUrlParameter(key, value) {
         url.searchParams.delete(key);
     }
     window.history.replaceState({}, '', url);
+}
+
+// Handle modals functionality
+function handleModals() {
+    const privacyModal = document.getElementById('privacy-modal');
+    const termsModal = document.getElementById('terms-modal');
+    const privacyLink = document.getElementById('privacy-link');
+    const termsLink = document.getElementById('terms-link');
+    const closePrivacy = document.getElementById('close-privacy');
+    const closeTerms = document.getElementById('close-terms');
+
+    function openModal(modal) {
+        if (modal) {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+    
+    function closeModal(modal) {
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    }
+    
+    if (privacyLink) {
+        privacyLink.onclick = function(e) {
+            e.preventDefault();
+            openModal(privacyModal);
+        };
+    }
+    
+    if (termsLink) {
+        termsLink.onclick = function(e) {
+            e.preventDefault();
+            openModal(termsModal);
+        };
+    }
+    
+    if (closePrivacy) {
+        closePrivacy.onclick = function() {
+            closeModal(privacyModal);
+        };
+    }
+    
+    if (closeTerms) {
+        closeTerms.onclick = function() {
+            closeModal(termsModal);
+        };
+    }
+    
+    window.onclick = function(event) {
+        if (event.target === privacyModal) closeModal(privacyModal);
+        if (event.target === termsModal) closeModal(termsModal);
+    };
 }

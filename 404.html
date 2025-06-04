@@ -12,37 +12,35 @@
     <link rel="icon" href="/favicon.ico" />
     <script>
         // Check for app route redirects immediately (for 404 page)
-(function() {
-    const currentPath = window.location.pathname;
-    const currentUrl = window.location.href;
-    
-    console.log('Current path:', currentPath);
-    console.log('Current URL:', currentUrl);
-    
-    // Check if this is an app route that should redirect to download
-    if (currentPath.startsWith('/app')) {
-        console.log('App route detected:', currentPath);
-        
-        // Create download URL with all query parameters preserved
-        const downloadUrl = new URL('/download.html', window.location.origin);
-        
-        // Copy all existing search parameters
-        const searchParams = new URLSearchParams(window.location.search);
-        searchParams.forEach((value, key) => {
-            downloadUrl.searchParams.set(key, value);
-        });
-        
-        // Add the original path as 'from' parameter if not already present
-        if (!searchParams.has('from')) {
-            downloadUrl.searchParams.set('from', currentPath);
-        }
-        
-        console.log('Redirecting to:', downloadUrl.toString());
-        
-        window.location.replace(downloadUrl.toString());
-
-    }
-})();
+        (function() {
+            const currentPath = window.location.pathname;
+            const currentSearch = window.location.search;
+            
+            console.log('404 - Current path:', currentPath);
+            console.log('404 - Current search:', currentSearch);
+            
+            // Check if this is an app route that should redirect to download
+            if (currentPath.startsWith('/app')) {
+                console.log('App route detected, redirecting...');
+                
+                // Create download URL with all query parameters preserved
+                const downloadUrl = new URL('/download', window.location.origin);
+                
+                // Add the original path as 'from' parameter
+                downloadUrl.searchParams.set('from', currentPath);
+                
+                // Preserve all existing query parameters
+                if (currentSearch) {
+                    const existingParams = new URLSearchParams(currentSearch);
+                    for (const [key, value] of existingParams) {
+                        downloadUrl.searchParams.set(key, value);
+                    }
+                }
+                
+                console.log('Redirecting to:', downloadUrl.toString());
+                window.location.replace(downloadUrl.toString());
+            }
+        })();
     </script>
 </head>
 <body>
@@ -50,26 +48,49 @@
     <header class="header" id="header">
         <div class="logo">
             <img src="assets/GRABBIT_no_background_logo.png" alt="Grabbit Logo">
-            <a href="index.html" class="logo-text">grabbit</a>
+            <a href="/" class="logo-text">grabbit</a>
         </div>
-        <nav class="nav-links">
+        <div class="nav-container">
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#features">Features</a>
+                <a href="index.html#team">Our Team</a>
+                <a href="index.html#contact">Contact</a>
+                <a href="https://testflight.apple.com/join/8Sk691jF" class="download-btn">
+                    <i class="fab fa-apple"></i>
+                    Download
+                </a>
+            </nav>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay">
+        <nav class="mobile-nav-links">
             <a href="index.html">Home</a>
             <a href="index.html#features">Features</a>
             <a href="index.html#team">Our Team</a>
             <a href="index.html#contact">Contact</a>
-            <a href="download.html" class="download-btn">
-                <i class="fab fa-apple"></i>
-                Download
-            </a>
         </nav>
-    </header>
+        <div class="mobile-buttons">
+            <a href="https://testflight.apple.com/join/8Sk691jF" class="download-btn">
+                <i class="fab fa-apple"></i>
+                Download TestFlight
+            </a>
+        </div>
+    </div>
 
     <!-- 404 message -->
     <main class="error-page">
         <div class="container text-center">
             <h1 class="display-1">404</h1>
-            <p class="lead">Oops! This page doesn’t exist.</p>
-            <a href="/" class="btn btn-primary">Go to Home</a>
+            <p class="lead">Oops! This page doesn't exist.</p>
+            <a href="/" class="btn-primary">Go to Home</a>
         </div>
     </main>
 
@@ -86,28 +107,11 @@
                 <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
                 <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="mailto:contact@grabbit.tech" title="Email"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
     </footer>
 
-    <script>
-        // App redirect logic for 404 page
-        (function() {
-            const currentPath = window.location.pathname;
-            const currentSearch = window.location.search;
-            
-            // Check if this is an app route that should redirect to download page
-            if (currentPath && currentPath.startsWith('/app')) {
-                // Preserve the original app path and any query parameters
-                const redirectUrl = '/download.html?redirected_from=' + encodeURIComponent(currentPath) + 
-                                  (currentSearch ? '&' + currentSearch.substring(1) : '');
-                
-                console.log('Redirecting app route:', currentPath, 'to:', redirectUrl);
-                window.location.href = redirectUrl;
-            }
-        })();
-    </script>
     <script src="js/main.js"></script>
 </body>
 </html>
