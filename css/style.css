@@ -815,3 +815,27 @@ html {
         font-size: 5rem;
     }
 }
+
+/* Email List Section */
+.email-list-section h2 {
+    color: #ff6b35 !important;
+}
+.email-list-section p {
+    color: #ff6b35 !important;
+}
+.email-list-btn {
+    background: #ff6b35 !important;
+    color: #fff !important;
+    border-radius: 8px;
+    padding: 1rem 2.2rem;
+    font-size: 1.18rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 2px 12px rgba(255,107,53,0.10);
+    transition: background 0.2s;
+    display: inline-block;
+    border: none;
+}
+.email-list-btn:hover {
+    background: #ff8a50 !important;
+}

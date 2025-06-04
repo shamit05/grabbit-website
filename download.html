@@ -102,51 +102,29 @@
         <div class="features-container">
             <div class="section-header">
                 <h2>Why Choose Grabbit?</h2>
-                <p>Discover the features that make community assistance simple and rewarding</p>
             </div>
             
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-bell"></i>
+                        <i class="fas fa-bolt"></i>
                     </div>
-                    <h3>Smart Notifications</h3>
-                    <p>Get notified when someone near you needs help or when help is available for your requests.</p>
+                    <h3>Smarter Than Delivery</h3>
+                    <p>Grabbit connects people already at the store with those who need something grabbed — no warehouses, no zig-zags, no markups. It’s clean, fast, and radically more sustainable.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-users"></i>
                     </div>
-                    <h3>Community Building</h3>
-                    <p>Connect with neighbors and build lasting relationships through mutual assistance.</p>
+                    <h3>Community-Powered Efficiency</h3>
+                    <p>Your neighbors are already out shopping — Grabbit just makes it easy to help each other out. One run, many needs met. Everyone saves time.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="fas fa-handshake"></i>
                     </div>
-                    <h3>Safe & Secure</h3>
-                    <p>Your privacy and safety are our top priorities with built-in security features.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <h3>Time Saving</h3>
-                    <p>Combine errands efficiently and save time while helping others in your community.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3>Location-Based</h3>
-                    <p>Smart proximity matching ensures you only see relevant requests in your area.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <h3>Feel Good</h3>
-                    <p>Experience the joy of helping others while getting the assistance you need.</p>
+                    <h3>No Fees. No Drivers. No Middlemen.</h3>
+                    <p>Forget delivery apps that charge you for the privilege of waiting. Grabbit makes errands frictionless by working with the rhythm of real life — not against it.</p>
                 </div>
             </div>
         </div>
@@ -191,8 +169,8 @@
         <div class="footer-content">
             <div class="footer-links">
                 <span>&copy; 2025 Grabbit. All rights reserved.</span>
-                <a href="#privacy">Privacy Policy</a>
-                <a href="#terms">Terms of Service</a>
+                <a href="#privacy" id="privacy-link">Privacy Policy</a>
+                <a href="#terms" id="terms-link">Terms of Service</a>
                 <a href="index.html">Back to Home</a>
             </div>
             <div class="social-links">
@@ -203,6 +181,104 @@
             </div>
         </div>
     </footer>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacy-modal" class="modal" style="display:none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100vw; height: 100vh; overflow: auto; background: rgba(0,0,0,0.45);">
+        <div class="modal-content" style="background: #fff; margin: 5vh auto; border-radius: 18px; max-width: 540px; padding: 2.5rem 2rem; box-shadow: 0 8px 40px rgba(0,0,0,0.18); position: relative;">
+            <span class="close" id="close-privacy" style="position: absolute; top: 18px; right: 24px; font-size: 2rem; cursor: pointer; color: #888;">&times;</span>
+            <h2 style="margin-top: 0;">Privacy Policy for Grabbit</h2>
+            <p><strong>Last updated: 06/04/2025</strong></p>
+            <p>At Grabbit, your privacy matters to us. This Privacy Policy explains how we collect, use, and protect your information when you interact with our website or services.</p>
+            <h3>1. Information We Collect</h3>
+            <p>When you visit our landing page, we may collect personal information you voluntarily provide (e.g., your email address if you sign up for updates) and usage data via cookies or analytics tools, such as your browser type, pages visited, and time spent on the site.</p>
+            <h3>2. How We Use Your Information</h3>
+            <p>We use the information we collect to improve our website and user experience, communicate with you (e.g., sending updates if you sign up), and understand general trends in usage. We will never sell your data to third parties.</p>
+            <h3>3. Third-Party Services</h3>
+            <p>We may use third-party services (such as Google Analytics or Mailchimp) to help operate our website or communicate with you. These services may collect information in accordance with their own privacy policies.</p>
+            <h3>4. Cookies</h3>
+            <p>We use cookies to understand how users navigate our site and to improve performance. You can choose to disable cookies in your browser settings, but some features may not function properly.</p>
+            <h3>5. Your Rights</h3>
+            <p>You may request that we update or delete your personal information, or stop sending you emails. To do so, email us at <a href="mailto:contact@grabbit.tech">contact@grabbit.tech</a>.</p>
+            <h3>6. Data Security</h3>
+            <p>We take reasonable precautions to protect your data, but no method of transmission over the internet is 100% secure.</p>
+            <h3>7. Updates to This Policy</h3>
+            <p>We may update this policy from time to time. When we do, we will update the "Last updated" date at the top of this page.</p>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div id="terms-modal" class="modal" style="display:none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100vw; height: 100vh; overflow: auto; background: rgba(0,0,0,0.45);">
+        <div class="modal-content" style="background: #fff; margin: 5vh auto; border-radius: 18px; max-width: 540px; padding: 2.5rem 2rem; box-shadow: 0 8px 40px rgba(0,0,0,0.18); position: relative;">
+            <span class="close" id="close-terms" style="position: absolute; top: 18px; right: 24px; font-size: 2rem; cursor: pointer; color: #888;">&times;</span>
+            <h2 style="margin-top: 0;">Terms of Service for Grabbit</h2>
+            <p><strong>Last updated: 06/04/2025</strong></p>
+            <p>Welcome to Grabbit! By accessing or using our website, you agree to the following Terms of Service. Please read them carefully.</p>
+            <h3>1. Acceptance of Terms</h3>
+            <p>By using our site, signing up for updates, or otherwise interacting with Grabbit, you agree to be bound by these Terms. If you do not agree, please do not use our website.</p>
+            <h3>2. Who We Are</h3>
+            <p>Grabbit is a community-powered concept reimagining everyday delivery. Our platform is currently in development and the site is for informational and pre-launch purposes only.</p>
+            <h3>3. User Conduct</h3>
+            <p>You agree not to use the site for any illegal or unauthorized purpose, attempt to disrupt or harm the website, services, or other users, or misrepresent your identity when signing up for updates or contacting us.</p>
+            <h3>4. Intellectual Property</h3>
+            <p>All content on this site — including text, branding, graphics, and design — is the property of Grabbit (unless otherwise noted) and may not be copied or used without permission.</p>
+            <h3>5. Sign-Ups and Communication</h3>
+            <p>If you provide your email to join our email list or receive updates, you agree to let us contact you occasionally. You can unsubscribe at any time.</p>
+            <h3>6. No Warranties</h3>
+            <p>Our website and its content are provided “as is.” We make no guarantees that the site will be error-free, uninterrupted, or fully secure. Grabbit is not yet a commercial service.</p>
+            <h3>7. Limitation of Liability</h3>
+            <p>To the fullest extent allowed by law, Grabbit and its team are not liable for any damages resulting from your use of the site or reliance on its content.</p>
+            <h3>8. Changes to These Terms</h3>
+            <p>We may update these Terms from time to time. Changes will be posted here, and your continued use of the site means you accept the revised terms.</p>
+            <h3>9. Contact</h3>
+            <p>Questions? Reach out to us at <a href="mailto:contact@grabbit.tech">contact@grabbit.tech</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        // Modal logic for Privacy Policy and Terms of Service
+        const privacyModal = document.getElementById('privacy-modal');
+        const termsModal = document.getElementById('terms-modal');
+        const privacyLink = document.getElementById('privacy-link');
+        const termsLink = document.getElementById('terms-link');
+        const closePrivacy = document.getElementById('close-privacy');
+        const closeTerms = document.getElementById('close-terms');
+
+        function openModal(modal) {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        function closeModal(modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+        if (privacyLink) {
+            privacyLink.onclick = function(e) {
+                e.preventDefault();
+                openModal(privacyModal);
+            };
+        }
+        if (termsLink) {
+            termsLink.onclick = function(e) {
+                e.preventDefault();
+                openModal(termsModal);
+            };
+        }
+        if (closePrivacy) {
+            closePrivacy.onclick = function() {
+                closeModal(privacyModal);
+            };
+        }
+        if (closeTerms) {
+            closeTerms.onclick = function() {
+                closeModal(termsModal);
+            };
+        }
+        window.onclick = function(event) {
+            if (event.target === privacyModal) closeModal(privacyModal);
+            if (event.target === termsModal) closeModal(termsModal);
+        };
+    </script>
 
     <script src="js/main.js"></script>
 </body>
