@@ -39,10 +39,8 @@
         
         console.log('Redirecting to:', downloadUrl.toString());
         
-        // Use setTimeout to ensure the page has loaded
-        setTimeout(() => {
-            window.location.replace(downloadUrl.toString());
-        }, 100);
+        window.location.replace(downloadUrl.toString());
+
     }
 })();
     </script>
