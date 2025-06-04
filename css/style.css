@@ -179,7 +179,7 @@ html {
 /* Invite Banner */
 .invite-banner {
     position: fixed;
-    top: 90px; /* Position below the header */
+    bottom: 50px; /* Position below the header */
     left: 50%;
     transform: translateX(-50%);
     width: 90%;

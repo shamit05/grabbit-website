@@ -10,6 +10,42 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="/favicon.ico" />
+    <script>
+        // Check for app route redirects immediately (for 404 page)
+(function() {
+    const currentPath = window.location.pathname;
+    const currentUrl = window.location.href;
+    
+    console.log('Current path:', currentPath);
+    console.log('Current URL:', currentUrl);
+    
+    // Check if this is an app route that should redirect to download
+    if (currentPath.startsWith('/app')) {
+        console.log('App route detected:', currentPath);
+        
+        // Create download URL with all query parameters preserved
+        const downloadUrl = new URL('/download.html', window.location.origin);
+        
+        // Copy all existing search parameters
+        const searchParams = new URLSearchParams(window.location.search);
+        searchParams.forEach((value, key) => {
+            downloadUrl.searchParams.set(key, value);
+        });
+        
+        // Add the original path as 'from' parameter if not already present
+        if (!searchParams.has('from')) {
+            downloadUrl.searchParams.set('from', currentPath);
+        }
+        
+        console.log('Redirecting to:', downloadUrl.toString());
+        
+        // Use setTimeout to ensure the page has loaded
+        setTimeout(() => {
+            window.location.replace(downloadUrl.toString());
+        }, 100);
+    }
+})();
+    </script>
 </head>
 <body>
     <!-- Header -->
