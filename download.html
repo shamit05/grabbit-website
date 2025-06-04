@@ -26,17 +26,40 @@
             <img src="assets/GRABBIT_no_background_logo.png" alt="Grabbit Logo">
             <a href="/" class="logo-text">grabbit</a>
         </div>
-        <nav class="nav-links">
+        <div class="nav-container">
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#features">Features</a>
+                <a href="index.html#team">Our Team</a>
+                <a href="index.html#contact">Contact</a>
+                <a href="/download" class="download-btn active">
+                    <i class="fab fa-apple"></i>
+                    Download
+                </a>
+            </nav>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay">
+        <nav class="mobile-nav-links">
             <a href="index.html">Home</a>
             <a href="index.html#features">Features</a>
             <a href="index.html#team">Our Team</a>
             <a href="index.html#contact">Contact</a>
-            <a href="/download" class="download-btn active">
-                <i class="fab fa-apple"></i>
-                Download
-            </a>
         </nav>
-    </header>
+        <div class="mobile-buttons">
+            <a href="https://testflight.apple.com/join/8Sk691jF" class="download-btn active">
+                <i class="fab fa-apple"></i>
+                Download TestFlight
+            </a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -47,26 +70,20 @@
         </div>
         <div class="hero-content">
             <h1>Download Grabbit</h1>
-            <p class="subtitle">Start building community connections today</p>
-            <p class="description">
-                Join thousands of users who are already streamlining their errands and strengthening 
-                their community bonds. Available now on iOS, with Android coming soon.
-            </p>
-            
+            <p class="subtitle">Join your community and streamline everyday errands</p>
             <div class="download-buttons">
-                <a href="https://apps.apple.com/app/id6746629995" class="app-store-btn" target="_blank" rel="noopener">
+                <a href="https://testflight.apple.com/join/8Sk691jF" class="app-store-btn">
                     <i class="fab fa-apple"></i>
-                    Download for iOS
+                    Download TestFlight Beta
                 </a>
-                <a href="#" class="coming-soon-btn">
+                <div class="coming-soon-btn">
                     <i class="fab fa-google-play"></i>
-                    Android - Coming Soon
-                </a>
+                    Android Coming Soon
+                </div>
             </div>
-            
             <div class="compatibility-info">
-                <h3><i class="fas fa-mobile-alt"></i> Device Compatibility</h3>
-                <p>Requires iOS 14.0 or later. Compatible with iPhone, iPad, and iPod touch.</p>
+                <h3>iOS Requirements</h3>
+                <p>Requires iOS 15.1 or later. Compatible with iPhone and iPod touch.</p>
             </div>
         </div>
     </section>
@@ -75,57 +92,80 @@
     <section class="screenshots">
         <div class="section-header">
             <h2>See Grabbit in Action</h2>
-            <p>Explore the intuitive interface designed to make community assistance effortless</p>
+            <p>Take a look at our intuitive interface designed for seamless community collaboration</p>
         </div>
-        
         <div class="screenshots-grid">
             <div class="screenshot-card">
-                <img src="assets/screenshots/Simulator Screenshot - iPhone 16 - 2025-05-28 at 18.01.35.png" alt="Grabbit Home Screen">
+                <img src="assets/screenshots/home.png" alt="Grabbit Home Screen">
                 <h3>Community Feed</h3>
-                <p>See real-time requests from your neighbors and community members in your area.</p>
+                <p>See what your friends and neighbors need in real-time</p>
             </div>
             <div class="screenshot-card">
-                <img src="assets/screenshots/Simulator Screenshot - iPhone 16 - 2025-05-28 at 18.01.55.png" alt="Grabbit Request Screen">
+                <img src="assets/screenshots/make_request.png" alt="Grabbit Request Creation">
                 <h3>Easy Requests</h3>
-                <p>Create and manage your errand requests with just a few taps.</p>
+                <p>Create and manage your errands with just a few taps</p>
             </div>
             <div class="screenshot-card">
-                <img src="assets/screenshots/Simulator Screenshot - iPhone 16 - 2025-05-28 at 18.02.47.png" alt="Grabbit Map View">
-                <h3>Location-Based</h3>
-                <p>Smart location features help you find and assist community members nearby.</p>
+                <img src="assets/screenshots/groups.png" alt="Grabbit Group Management">
+                <h3>Group Management</h3>
+                <p>Stay connected with your community groups and track deliveries</p>
+            </div>
+            <div class="screenshot-card">
+                <img src="assets/screenshots/settings.png" alt="Grabbit Settings">
+                <h3>Settings & Profile</h3>
+                <p>Customize your preferences and manage your account settings</p>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
     <section class="features">
-        <div class="features-container">
-            <div class="section-header">
-                <h2>Why Choose Grabbit?</h2>
+        <div class="section-header">
+            <h2>Why Choose Grabbit?</h2>
+            <p>Discover the features that make community collaboration effortless</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h3>Smart Notifications</h3>
+                <p>Get notified when someone in your area needs something you can help with, making community support effortless.</p>
             </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Smarter Than Delivery</h3>
-                    <p>Grabbit connects people already at the store with those who need something grabbed — no warehouses, no zig-zags, no markups. It’s clean, fast, and radically more sustainable.</p>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Community-Powered Efficiency</h3>
-                    <p>Your neighbors are already out shopping — Grabbit just makes it easy to help each other out. One run, many needs met. Everyone saves time.</p>
+                <h3>Community Building</h3>
+                <p>Connect with friends, neighbors, and colleagues to create a supportive network that helps everyone save time.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h3>No Fees. No Drivers. No Middlemen.</h3>
-                    <p>Forget delivery apps that charge you for the privilege of waiting. Grabbit makes errands frictionless by working with the rhythm of real life — not against it.</p>
+                <h3>Safe & Secure</h3>
+                <p>Built with privacy in mind, ensuring your personal information and location data are always protected.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-clock"></i>
                 </div>
+                <h3>Time Saving</h3>
+                <p>Reduce redundant trips by coordinating with others who are already heading to the same places.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Location-Based</h3>
+                <p>Smart location matching ensures you only see relevant requests from people in your immediate area.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Feel Good</h3>
+                <p>Experience the joy of helping others while building stronger connections within your community.</p>
             </div>
         </div>
     </section>
@@ -136,29 +176,28 @@
             <h2>System Requirements</h2>
             <p>Make sure your device is compatible with Grabbit</p>
         </div>
-        
         <div class="requirements-card">
             <h3>iOS Requirements</h3>
             <div class="requirements-list">
                 <div class="requirement-item">
                     <i class="fas fa-check-circle"></i>
-                    <span>iOS 14.0 or later</span>
+                    <span>iOS 15.1 or later</span>
                 </div>
                 <div class="requirement-item">
                     <i class="fas fa-check-circle"></i>
-                    <span>iPhone, iPad, or iPod touch</span>
+                    <span>Compatible with iPhone</span>
                 </div>
                 <div class="requirement-item">
                     <i class="fas fa-check-circle"></i>
-                    <span>Location services enabled</span>
+                    <span>Compatible with iPod touch</span>
+                </div>
+                <div class="requirement-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Requires location services</span>
                 </div>
                 <div class="requirement-item">
                     <i class="fas fa-check-circle"></i>
                     <span>Internet connection required</span>
-                </div>
-                <div class="requirement-item">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Push notifications recommended</span>
                 </div>
             </div>
         </div>
@@ -169,15 +208,15 @@
         <div class="footer-content">
             <div class="footer-links">
                 <span>&copy; 2025 Grabbit. All rights reserved.</span>
-                <a href="#privacy" id="privacy-link">Privacy Policy</a>
-                <a href="#terms" id="terms-link">Terms of Service</a>
-                <a href="index.html">Back to Home</a>
+                <a href="#" id="privacy-link">Privacy Policy</a>
+                <a href="#" id="terms-link">Terms of Service</a>
+                <a href="/">Back to Home</a>
             </div>
             <div class="social-links">
                 <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
                 <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="mailto:contact@grabbit.tech" title="Email"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
     </footer>
@@ -185,46 +224,40 @@
     <!-- Privacy Policy Modal -->
     <div id="privacy-modal" class="modal" style="display:none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100vw; height: 100vh; overflow: auto; background: rgba(0,0,0,0.45);">
         <div class="modal-content" style="background: #fff; margin: 5vh auto; border-radius: 18px; max-width: 540px; padding: 2.5rem 2rem; box-shadow: 0 8px 40px rgba(0,0,0,0.18); position: relative;">
-            <span class="close" id="close-privacy" style="position: absolute; top: 18px; right: 24px; font-size: 2rem; cursor: pointer; color: #888;">&times;</span>
-            <h2 style="margin-top: 0;">Privacy Policy for Grabbit</h2>
-            <p><strong>Last updated: 06/04/2025</strong></p>
-            <p>At Grabbit, your privacy matters to us. This Privacy Policy explains how we collect, use, and protect your information when you interact with our website or services.</p>
+            <span id="close-privacy" style="position: absolute; top: 1rem; right: 1.2rem; font-size: 1.8rem; font-weight: bold; cursor: pointer; color: #aaa;">&times;</span>
+            <h2>Privacy Policy</h2>
+            <p><strong>Effective Date:</strong> January 1, 2025</p>
             <h3>1. Information We Collect</h3>
-            <p>When you visit our landing page, we may collect personal information you voluntarily provide (e.g., your email address if you sign up for updates) and usage data via cookies or analytics tools, such as your browser type, pages visited, and time spent on the site.</p>
+            <p>We collect information you provide directly to us, such as when you create an account, use our services, or contact us for support.</p>
             <h3>2. How We Use Your Information</h3>
-            <p>We use the information we collect to improve our website and user experience, communicate with you (e.g., sending updates if you sign up), and understand general trends in usage. We will never sell your data to third parties.</p>
-            <h3>3. Third-Party Services</h3>
-            <p>We may use third-party services (such as Google Analytics or Mailchimp) to help operate our website or communicate with you. These services may collect information in accordance with their own privacy policies.</p>
-            <h3>4. Cookies</h3>
-            <p>We use cookies to understand how users navigate our site and to improve performance. You can choose to disable cookies in your browser settings, but some features may not function properly.</p>
-            <h3>5. Your Rights</h3>
-            <p>You may request that we update or delete your personal information, or stop sending you emails. To do so, email us at <a href="mailto:contact@grabbit.tech">contact@grabbit.tech</a>.</p>
-            <h3>6. Data Security</h3>
-            <p>We take reasonable precautions to protect your data, but no method of transmission over the internet is 100% secure.</p>
-            <h3>7. Updates to This Policy</h3>
-            <p>We may update this policy from time to time. When we do, we will update the "Last updated" date at the top of this page.</p>
+            <p>We use the information we collect to provide, maintain, and improve our services, and to communicate with you.</p>
+            <h3>3. Information Sharing</h3>
+            <p>We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy.</p>
+            <h3>4. Data Security</h3>
+            <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p>
+            <h3>5. Contact Us</h3>
+            <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:contact@grabbit.tech">contact@grabbit.tech</a>.</p>
         </div>
     </div>
 
     <!-- Terms of Service Modal -->
     <div id="terms-modal" class="modal" style="display:none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100vw; height: 100vh; overflow: auto; background: rgba(0,0,0,0.45);">
         <div class="modal-content" style="background: #fff; margin: 5vh auto; border-radius: 18px; max-width: 540px; padding: 2.5rem 2rem; box-shadow: 0 8px 40px rgba(0,0,0,0.18); position: relative;">
-            <span class="close" id="close-terms" style="position: absolute; top: 18px; right: 24px; font-size: 2rem; cursor: pointer; color: #888;">&times;</span>
-            <h2 style="margin-top: 0;">Terms of Service for Grabbit</h2>
-            <p><strong>Last updated: 06/04/2025</strong></p>
-            <p>Welcome to Grabbit! By accessing or using our website, you agree to the following Terms of Service. Please read them carefully.</p>
+            <span id="close-terms" style="position: absolute; top: 1rem; right: 1.2rem; font-size: 1.8rem; font-weight: bold; cursor: pointer; color: #aaa;">&times;</span>
+            <h2>Terms of Service</h2>
+            <p><strong>Effective Date:</strong> January 1, 2025</p>
             <h3>1. Acceptance of Terms</h3>
-            <p>By using our site, signing up for updates, or otherwise interacting with Grabbit, you agree to be bound by these Terms. If you do not agree, please do not use our website.</p>
-            <h3>2. Who We Are</h3>
-            <p>Grabbit is a community-powered concept reimagining everyday delivery. Our platform is currently in development and the site is for informational and pre-launch purposes only.</p>
-            <h3>3. User Conduct</h3>
-            <p>You agree not to use the site for any illegal or unauthorized purpose, attempt to disrupt or harm the website, services, or other users, or misrepresent your identity when signing up for updates or contacting us.</p>
-            <h3>4. Intellectual Property</h3>
-            <p>All content on this site — including text, branding, graphics, and design — is the property of Grabbit (unless otherwise noted) and may not be copied or used without permission.</p>
-            <h3>5. Sign-Ups and Communication</h3>
-            <p>If you provide your email to join our email list or receive updates, you agree to let us contact you occasionally. You can unsubscribe at any time.</p>
-            <h3>6. No Warranties</h3>
-            <p>Our website and its content are provided “as is.” We make no guarantees that the site will be error-free, uninterrupted, or fully secure. Grabbit is not yet a commercial service.</p>
+            <p>By accessing and using Grabbit, you accept and agree to be bound by the terms and provision of this agreement.</p>
+            <h3>2. Description of Service</h3>
+            <p>Grabbit is a community-based platform that helps users coordinate errands and deliveries within their local communities.</p>
+            <h3>3. User Responsibilities</h3>
+            <p>You are responsible for your conduct while using our service and for any content you post or share.</p>
+            <h3>4. Privacy</h3>
+            <p>Your privacy is important to us. Please review our Privacy Policy to understand how we collect and use your information.</p>
+            <h3>5. Prohibited Uses</h3>
+            <p>You may not use our service for any unlawful purpose or to solicit others to perform unlawful acts.</p>
+            <h3>6. Termination</h3>
+            <p>We may terminate or suspend your account and access to the service immediately, without prior notice, for conduct that we believe violates these Terms.</p>
             <h3>7. Limitation of Liability</h3>
             <p>To the fullest extent allowed by law, Grabbit and its team are not liable for any damages resulting from your use of the site or reliance on its content.</p>
             <h3>8. Changes to These Terms</h3>
@@ -233,52 +266,6 @@
             <p>Questions? Reach out to us at <a href="mailto:contact@grabbit.tech">contact@grabbit.tech</a>.</p>
         </div>
     </div>
-
-    <script>
-        // Modal logic for Privacy Policy and Terms of Service
-        const privacyModal = document.getElementById('privacy-modal');
-        const termsModal = document.getElementById('terms-modal');
-        const privacyLink = document.getElementById('privacy-link');
-        const termsLink = document.getElementById('terms-link');
-        const closePrivacy = document.getElementById('close-privacy');
-        const closeTerms = document.getElementById('close-terms');
-
-        function openModal(modal) {
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        function closeModal(modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-        if (privacyLink) {
-            privacyLink.onclick = function(e) {
-                e.preventDefault();
-                openModal(privacyModal);
-            };
-        }
-        if (termsLink) {
-            termsLink.onclick = function(e) {
-                e.preventDefault();
-                openModal(termsModal);
-            };
-        }
-        if (closePrivacy) {
-            closePrivacy.onclick = function() {
-                closeModal(privacyModal);
-            };
-        }
-        if (closeTerms) {
-            closeTerms.onclick = function() {
-                closeModal(termsModal);
-            };
-        }
-        window.onclick = function(event) {
-            if (event.target === privacyModal) closeModal(privacyModal);
-            if (event.target === termsModal) closeModal(termsModal);
-        };
-    </script>
 
     <script src="js/main.js"></script>
 </body>
