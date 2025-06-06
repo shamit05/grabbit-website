@@ -941,11 +941,6 @@ textarea::placeholder {
         gap: 0;
     }
     
-    .invite-banner {
-        padding: 0.8rem 3rem 0.8rem 1rem;
-        top: 0;
-        border-radius: 0;
-    }
     
     .invite-banner h3 {
         font-size: 1rem;
