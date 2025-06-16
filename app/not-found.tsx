@@ -1,62 +1,66 @@
 'use client'
 
+import { useEffect } from 'react'
 import Link from 'next/link'
-import Header from '../components/Header'
 
 export default function NotFound() {
+  useEffect(() => {
+    // Check for app route redirects immediately (for 404 page)
+    const currentPath = window.location.pathname;
+    const currentSearch = window.location.search;
+    
+    console.log('404 - Current path:', currentPath);
+    console.log('404 - Current search:', currentSearch);
+    
+    // Check if this is an app route that should redirect to download
+    if (currentPath.startsWith('/app')) {
+      console.log('App route detected, redirecting...');
+      
+      // Create download URL with all query parameters preserved
+      const downloadUrl = new URL('/download', window.location.origin);
+      
+      // Add the original path as 'from' parameter
+      downloadUrl.searchParams.set('from', currentPath);
+      
+      // Preserve all existing query parameters
+      if (currentSearch) {
+        const existingParams = new URLSearchParams(currentSearch);
+        for (const [key, value] of existingParams) {
+          downloadUrl.searchParams.set(key, value);
+        }
+      }
+      
+      console.log('Redirecting to:', downloadUrl.toString());
+      window.location.replace(downloadUrl.toString());
+    }
+  }, [])
+
   return (
     <>
-      <Header currentPage="" />
-      
-      <main className="not-found-page">
-        <section className="hero">
-          <div className="hero-content">
-            <div className="error-content">
-              <h1 className="error-code">404</h1>
-              <h2 className="error-title">Oops! Page not found</h2>
-              <p className="error-description">
-                The page you&apos;re looking for seems to have wandered off. 
-                Don&apos;t worry, it happens to the best of us!
-              </p>
-              
-              <div className="error-actions">
-                <Link href="/" className="btn-primary">
-                  <i className="fas fa-home"></i>
-                  Go Home
-                </Link>
-                <Link href="/download" className="btn-secondary">
-                  <i className="fas fa-download"></i>
-                  Download App
-                </Link>
-              </div>
-              
-              <div className="help-text">
-                <p>
-                  If you think this is a mistake, please{' '}
-                  <a href="mailto:contact@grabbit.tech">contact us</a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer className="footer">
-        <div className="footer-content">
-          <div className="footer-links">
-            <span>&copy; 2025 Grabbit. All rights reserved.</span>
-            <Link href="/">Home</Link>
-            <Link href="/download">Download</Link>
-            <a href="mailto:contact@grabbit.tech">Contact</a>
-          </div>
-          <div className="social-links">
-            <a href="#" title="Instagram"><i className="fab fa-instagram"></i></a>
-            <a href="#" title="LinkedIn"><i className="fab fa-linkedin"></i></a>
-            <a href="#" title="Twitter"><i className="fab fa-twitter"></i></a>
-            <a href="mailto:contact@grabbit.tech" title="Email"><i className="fas fa-envelope"></i></a>
-          </div>
+      {/* Mobile Menu Overlay */}
+      <div className="mobile-menu-overlay">
+        <nav className="mobile-nav-links">
+          <Link href="/">Home</Link>
+          <Link href="/#features">Features</Link>
+          <Link href="/#team">Our Team</Link>
+          <Link href="/#contact">Contact</Link>
+        </nav>
+        <div className="mobile-buttons">
+          <a href="https://testflight.apple.com/join/8Sk691jF" className="download-btn">
+            <i className="fab fa-apple"></i>
+            Download TestFlight
+          </a>
         </div>
-      </footer>
+      </div>
+
+      {/* 404 message */}
+      <main className="error-page">
+        <div className="container text-center">
+          <h1 className="display-1">404</h1>
+          <p className="lead">Oops! This page doesn&apos;t exist.</p>
+          <Link href="/" className="btn-primary">Go to Home</Link>
+        </div>
+      </main>
     </>
   )
 }
