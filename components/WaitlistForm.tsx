@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { addToWaitlist, getWaitlistCount } from '../lib/waitlist'
+import { addToWaitlist, getWaitlistCount, validateReferralCode } from '../lib/waitlist'
 
 interface WaitlistFormProps {
   initialReferralCode?: string;
@@ -42,7 +42,8 @@ export default function WaitlistForm({ initialReferralCode }: WaitlistFormProps)
       }
 
       // Clean referral code (remove whitespace, convert to uppercase)
-      const cleanReferralCode = referralCode?.trim().toUpperCase() || undefined
+      const trimmedReferralCode = referralCode.trim().toUpperCase()
+      const cleanReferralCode = trimmedReferralCode || undefined
       
       // Add to waitlist and send magic link email
       await addToWaitlist(email, cleanReferralCode)
@@ -112,15 +113,17 @@ export default function WaitlistForm({ initialReferralCode }: WaitlistFormProps)
 
           <div className="form-group">
             <label htmlFor="referralCode">Referral Code (Optional)</label>
-            <input
-              id="referralCode"
-              type="text"
-              value={referralCode}
-              onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
-              placeholder="Enter referral code"
-              disabled={isSubmitting}
-              className="referral-input"
-            />
+            <div className="referral-input-container">
+              <input
+                id="referralCode"
+                type="text"
+                value={referralCode}
+                onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
+                placeholder="Enter referral code"
+                disabled={isSubmitting}
+                className="referral-input"
+              />
+            </div>
             <small className="form-hint">Have a friend&apos;s referral code? Enter it to get a bonus raffle ticket!</small>
           </div>
 
