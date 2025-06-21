@@ -1,0 +1,13 @@
+{
+  "projects": {
+    "default": "grabbit-website"
+  },
+  "targets": {},
+  "etags": {
+    "grabbit-website": {
+      "extensionInstances": {
+        "firestore-send-email": "758818bddc5f2e2c8886110f0f5ee9485704c7c30807769d8adf4c9a0e12fcad"
+      }
+    }
+  }
+}
