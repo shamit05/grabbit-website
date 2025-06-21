@@ -42,3 +42,15 @@ logs
 
 # firebase functions
 functions/
+
+# firebase
+firebase-debug.log
+# Firebase Hosting
+firebase.json
+# Firebase Functions
+firebase.rules
+.firebaserc
+
+extensions/
+
+.firebase/
