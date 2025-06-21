@@ -39,3 +39,6 @@ next-env.d.ts
 # Logs
 logs
 *.log
+
+# firebase functions
+functions/
