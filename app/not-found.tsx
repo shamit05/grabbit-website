@@ -9,13 +9,8 @@ export default function NotFound() {
     const currentPath = window.location.pathname;
     const currentSearch = window.location.search;
     
-    console.log('404 - Current path:', currentPath);
-    console.log('404 - Current search:', currentSearch);
-    
     // Check if this is an app route that should redirect to download
     if (currentPath.startsWith('/app')) {
-      console.log('App route detected, redirecting...');
-      
       // Create download URL with all query parameters preserved
       const downloadUrl = new URL('/download', window.location.origin);
       
@@ -30,7 +25,6 @@ export default function NotFound() {
         }
       }
       
-      console.log('Redirecting to:', downloadUrl.toString());
       window.location.replace(downloadUrl.toString());
     }
   }, [])

@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
     <title>Download Grabbit - Community-Based Errand Assistance App</title>
     <meta name="apple-itunes-app" content="app-id=6746629995" />
     <meta name="description" content="Download the Grabbit app for iOS. Join your community to streamline everyday errands through location-based notifications and community assistance.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="styles/globals.css">
 </head>
 <body>
-    <!-- Invite Banner (will be shown dynamically for app redirects) -->
+    <div class="page-layout">
+        <!-- Invite Banner (will be shown dynamically for app redirects) -->
     <div id="invite-banner" class="invite-banner">
         <button class="banner-close" onclick="this.parentElement.classList.remove('show')" aria-label="Close invite banner">
             <i class="fas fa-times"></i>
@@ -61,8 +63,9 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
         <div class="floating-shapes">
             <div class="shape"></div>
             <div class="shape"></div>
@@ -202,6 +205,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -220,6 +224,7 @@
             </div>
         </div>
     </footer>
+    </div>
 
     <!-- Privacy Policy Modal -->
     <div id="privacy-modal" class="modal" style="display:none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100vw; height: 100vh; overflow: auto; background: rgba(0,0,0,0.45);">

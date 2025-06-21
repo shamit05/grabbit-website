@@ -47,13 +47,13 @@ export default function Header({ currentPage = 'home' }: HeaderProps) {
         <div className="nav-container">
           <nav className="nav-links">
             <Link href="/" className={currentPage === 'home' ? 'active' : ''}>Home</Link>
+            <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}>About</a>
             <a href="#features" onClick={(e) => { e.preventDefault(); scrollToSection('features'); }}>Features</a>
-            <a href="#team" onClick={(e) => { e.preventDefault(); scrollToSection('team'); }}>Our Team</a>
-            <a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>Contact</a>
-            <Link href="/download" className={`download-btn ${currentPage === 'download' ? 'active' : ''}`}>
-              <i className="fab fa-apple"></i>
-              Download
+            <a href="#mission" onClick={(e) => { e.preventDefault(); scrollToSection('mission'); }}>Our Mission</a>
+            <Link href="/waitlist" className={`download-btn ${currentPage === 'waitlist' ? 'active' : ''}`} onClick={closeMenu}>
+                Join Waitlist
             </Link>
+            
           </nav>
           <div className={`hamburger ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
             <span></span>
@@ -67,14 +67,13 @@ export default function Header({ currentPage = 'home' }: HeaderProps) {
       <div className={`mobile-menu-overlay ${isMenuOpen ? 'active' : ''}`}>
         <nav className="mobile-nav-links">
           <Link href="/" onClick={closeMenu}>Home</Link>
+          <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}>About</a>
           <a href="#features" onClick={(e) => { e.preventDefault(); scrollToSection('features'); }}>Features</a>
-          <a href="#team" onClick={(e) => { e.preventDefault(); scrollToSection('team'); }}>Our Team</a>
-          <a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>Contact</a>
-        </nav>
+          <a href="#mission" onClick={(e) => { e.preventDefault(); scrollToSection('mission'); }}>Our Mission</a>
+          </nav>
         <div className="mobile-buttons">
-          <Link href="https://testflight.apple.com/join/8Sk691jF" className="download-btn active" onClick={closeMenu}>
-            <i className="fab fa-apple"></i>
-            Download TestFlight
+          <Link href="/waitlist" className={`download-btn ${currentPage === 'waitlist' ? 'active' : ''}`} onClick={closeMenu}>
+            Join Waitlist
           </Link>
         </div>
       </div>

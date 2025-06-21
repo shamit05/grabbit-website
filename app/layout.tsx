@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import '../styles/globals.css'
 import ClientScripts from '../components/ClientScripts'
-import Header from '../components/Header'
+import DynamicHeader from '../components/DynamicHeader'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -32,6 +32,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
+  colorScheme: 'dark',
 }
 
 export default function RootLayout({
@@ -40,8 +41,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
+        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#0f0f0f" />
         <link rel="icon" href="/Grabbit.ico" />
         <link 
           rel="stylesheet" 
@@ -49,25 +52,29 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <Header />
-        {children}
-        
-        {/* Footer */}
-        <footer className="footer">
-          <div className="footer-content">
-            <div className="footer-links">
-              <span>&copy; 2025 Grabbit. All rights reserved.</span>
-              <a href="#" id="privacy-link">Privacy Policy</a>
-              <a href="#" id="terms-link">Terms of Service</a>
+        <div className="page-layout">
+          <DynamicHeader />
+          <main className="main-content">
+            {children}
+          </main>
+          
+          {/* Footer */}
+          <footer className="footer">
+            <div className="footer-content">
+              <div className="footer-links">
+                <span>&copy; 2025 Grabbit. All rights reserved.</span>
+                <a href="#" id="privacy-link">Privacy Policy</a>
+                <a href="#" id="terms-link">Terms of Service</a>
+              </div>
+              <div className="social-links">
+                <a href="#" title="Instagram"><i className="fab fa-instagram"></i></a>
+                <a href="#" title="LinkedIn"><i className="fab fa-linkedin"></i></a>
+                <a href="#" title="Twitter"><i className="fab fa-twitter"></i></a>
+                <a href="mailto:contact@grabbit.tech" title="Email"><i className="fas fa-envelope"></i></a>
+              </div>
             </div>
-            <div className="social-links">
-              <a href="#" title="Instagram"><i className="fab fa-instagram"></i></a>
-              <a href="#" title="LinkedIn"><i className="fab fa-linkedin"></i></a>
-              <a href="#" title="Twitter"><i className="fab fa-twitter"></i></a>
-              <a href="mailto:contact@grabbit.tech" title="Email"><i className="fas fa-envelope"></i></a>
-            </div>
-          </div>
-        </footer>
+          </footer>
+        </div>
 
         <ClientScripts />
         <Script 

@@ -1,0 +1,73 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Waitlist collection rules
+    match /waitlist/{userId} {
+      // Allow read access to all users for waitlist count and leaderboard
+      allow read: if true;
+      
+      // Allow create for new waitlist entries
+      allow create: if isValidWaitlistUser(request.resource.data);
+      
+      // Allow updates for email verification and points (one-time only)
+      allow update: if isValidEmailVerificationUpdate(request.resource.data, resource.data) ||
+                       isValidReferralPointUpdate(request.resource.data, resource.data);
+      
+      // No delete allowed
+      allow delete: if false;
+    }
+    
+    // Mail collection for Firebase email extension
+    match /mail/{emailId} {
+      // Allow creation of email documents
+      allow create: if true;
+      // Allow reading for status updates
+      allow read: if true;
+      // No manual updates or deletes
+      allow update, delete: if false;
+    }
+    
+    // Helper function to validate new waitlist user data
+    function isValidWaitlistUser(data) {
+      return data.keys().hasAll(['id', 'email', 'referralCode', 'points', 'joinedAt', 'magicToken', 'emailVerified', 'referralUsed']) &&
+             data.email is string &&
+             data.email.matches('.*@.*\\..*') &&
+             data.referralCode is string &&
+             data.referralCode.size() > 0 &&
+             data.points is number &&
+             data.points == 0 && // Must start with 0 points
+             data.magicToken is string &&
+             data.magicToken.size() > 0 &&
+             data.id is string &&
+             data.id.size() > 0 &&
+             data.emailVerified == false && // Must start unverified
+             data.referralUsed == false && // Must start with referral unused
+             // referredBy is optional
+             (!data.keys().hasAny(['referredBy']) || 
+              (data.referredBy == null || (data.referredBy is string && data.referredBy.size() > 0)));
+    }
+    
+    // Helper function to validate email verification update (one-time only)
+    function isValidEmailVerificationUpdate(newData, oldData) {
+      return oldData.emailVerified == false && // Was unverified
+             newData.emailVerified == true && // Now verified
+             newData.points >= 1 && newData.points <= 2 && // 1 for joining, +1 for referral
+             newData.magicToken == oldData.magicToken && // Magic token unchanged
+             newData.email == oldData.email && // Email unchanged
+             newData.referralCode == oldData.referralCode && // Referral code unchanged
+             // If referral was used, mark it as such
+             (newData.referralUsed == true || newData.referralUsed == oldData.referralUsed);
+    }
+    
+    // Helper function to validate referral point updates
+    function isValidReferralPointUpdate(newData, oldData) {
+      return oldData.emailVerified == true && // Must be verified user
+             newData.emailVerified == true &&
+             newData.points == oldData.points + 1 && // Exactly 1 point increment
+             newData.email == oldData.email && // Email unchanged
+             newData.referralCode == oldData.referralCode && // Referral code unchanged
+             newData.magicToken == oldData.magicToken; // Magic token unchanged
+    }
+  }
+}

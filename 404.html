@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark">
     <title>404 – Page Not Found | Grabbit</title>
     <meta name="description" content="Page not found. This page may have moved or doesn't exist.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="styles/globals.css">
     <link rel="icon" href="/favicon.ico" />
     <script>
         // Check for app route redirects immediately (for 404 page)
@@ -16,13 +17,8 @@
             const currentPath = window.location.pathname;
             const currentSearch = window.location.search;
             
-            console.log('404 - Current path:', currentPath);
-            console.log('404 - Current search:', currentSearch);
-            
             // Check if this is an app route that should redirect to download
             if (currentPath.startsWith('/app')) {
-                console.log('App route detected, redirecting...');
-                
                 // Create download URL with all query parameters preserved
                 const downloadUrl = new URL('/download', window.location.origin);
                 
@@ -37,14 +33,14 @@
                     }
                 }
                 
-                console.log('Redirecting to:', downloadUrl.toString());
                 window.location.replace(downloadUrl.toString());
             }
         })();
     </script>
 </head>
 <body>
-    <!-- Header -->
+    <div class="page-layout">
+        <!-- Header -->
     <header class="header" id="header">
         <div class="logo">
             <img src="assets/GRABBIT_no_background_logo.png" alt="Grabbit Logo">
@@ -86,11 +82,13 @@
     </div>
 
     <!-- 404 message -->
-    <main class="error-page">
-        <div class="container text-center">
-            <h1 class="display-1">404</h1>
-            <p class="lead">Oops! This page doesn't exist.</p>
-            <a href="/" class="btn-primary">Go to Home</a>
+    <main class="main-content">
+        <div class="error-page">
+            <div class="container text-center">
+                <h1 class="display-1">404</h1>
+                <p class="lead">Oops! This page doesn't exist.</p>
+                <a href="/" class="btn-primary">Go to Home</a>
+            </div>
         </div>
     </main>
 
@@ -111,6 +109,7 @@
             </div>
         </div>
     </footer>
+    </div>
 
     <script src="js/main.js"></script>
 </body>
