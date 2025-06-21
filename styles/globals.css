@@ -73,7 +73,7 @@ html {
     border-radius: 20px;
     background: rgba(15, 15, 15, 0.4);
     backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    /* -webkit-backdrop-filter: blur(20px) saturate(150%); */
     z-index: 999;
     transition: all 0.3s ease;
     padding: 0.8rem 2rem;
@@ -86,7 +86,7 @@ html {
 .header.scrolled {
     /* background: rgba(15, 15, 15, 0.9); */
     backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    /* -webkit-backdrop-filter: blur(25px); */
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
 }
