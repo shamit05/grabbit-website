@@ -113,15 +113,17 @@ function HomePageContent() {
       </section>
 
       {/* Final CTA */}
-      <section className="final-cta-section">
-        <div className="cta-content">
-          <h2>Ready to Join the Revolution?</h2>
-          <p>Be among the first to experience community-powered delivery</p>
-          <Link href={waitlistUrl} className="btn-primary">
-            Join the Waitlist
-          </Link>
-        </div>
-      </section>
+      <div style={{padding: '0 20px'}}>
+        <section className="final-cta-section">
+            <div className="cta-content">
+            <h2>Ready to Join the Revolution?</h2>
+            <p>Be among the first to experience community-powered delivery</p>
+            <Link href={waitlistUrl} className="btn-primary">
+                Join the Waitlist
+            </Link>
+            </div>
+        </section>
+      </div>
     </>
   )
 }

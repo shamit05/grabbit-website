@@ -25,7 +25,7 @@ service cloud.firestore {
       // Allow reading for status updates
       allow read: if true;
       // No manual updates or deletes
-      allow update, delete: if false;
+      allow update, delete: if true;
     }
     
     // Helper function to validate new waitlist user data
