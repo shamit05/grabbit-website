@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function WaitlistPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div></div>}>
       <WaitlistPageContent />
     </Suspense>
   )
