@@ -31,22 +31,6 @@ export default function NotFound() {
 
   return (
     <>
-      {/* Mobile Menu Overlay */}
-      <div className="mobile-menu-overlay">
-        <nav className="mobile-nav-links">
-          <Link href="/">Home</Link>
-          <Link href="/#features">Features</Link>
-          <Link href="/#team">Our Team</Link>
-          <Link href="/#contact">Contact</Link>
-        </nav>
-        <div className="mobile-buttons">
-          <a href="https://testflight.apple.com/join/8Sk691jF" className="download-btn">
-            <i className="fab fa-apple"></i>
-            Download TestFlight
-          </a>
-        </div>
-      </div>
-
       {/* 404 message */}
       <main className="error-page">
         <div className="container text-center">
