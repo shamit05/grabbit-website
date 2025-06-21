@@ -1,0 +1,9 @@
+# Modern browsers with good backdrop-filter support
+> 0.5%
+last 2 versions
+not dead
+not ie <= 11
+Firefox >= 60
+Chrome >= 76
+Safari >= 14
+Edge >= 79
