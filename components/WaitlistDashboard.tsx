@@ -142,7 +142,7 @@ export default function WaitlistDashboard() {
                 <span>will be randomly selected</span>
               </div>
               <div className="lottery-detail">
-                <strong>Dollar10 Each</strong>
+                <strong>$Dollar Each</strong>
                 <span>Grabbit credit prize</span>
               </div>
               <div className="lottery-detail">

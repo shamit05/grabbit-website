@@ -274,7 +274,7 @@ export async function sendMagicLinkEmail(email: string, magicToken: string): Pro
                 .button { 
                 display: inline-block; 
                 background: linear-gradient(135deg, #ff6b35, #ff8c42); 
-                color: white; 
+                color: white !important; 
                 padding: 16px 32px; 
                 text-decoration: none; 
                 border-radius: 50px; 
@@ -323,27 +323,27 @@ export async function sendMagicLinkEmail(email: string, magicToken: string): Pro
             <body>
             <div class="container">
                 <div class="header">
-                <h1>🎰 Welcome to Grabbit!</h1>
+                <h1>Welcome to Grabbit!</h1>
                 <p>Your waitlist registration is almost complete</p>
                 </div>
                 
                 <div class="content">
                 <h2>Click to Access Your Dashboard</h2>
-                <p>Hi there! 👋</p>
+                <p>Hi there!</p>
                 <p>Thanks for joining the Grabbit waitlist! Click the button below to access your dashboard and complete your registration:</p>
                 
                 <a href="${magicLink}" class="button">
-                    Access My Dashboard & Get Tickets 🎫
+                    Access My Dashboard & Get Tickets
                 </a>
                 
                 <div class="features">
                     <h3>What happens when you click?</h3>
                     <ul>
-                    <li>🎫 You'll get 1 raffle ticket for joining</li>
-                    <li>🎁 Extra tickets for any referrals</li>
-                    <li>📊 View your referral code to share with friends</li>
-                    <li>🏆 See your position on the waitlist</li>
-                    <li>💰 Track your chances to win $10 credit</li>
+                    <li>You'll get 1 raffle ticket for joining</li>
+                    <li>Extra tickets for any referrals</li>
+                    <li>View your referral code to share with friends</li>
+                    <li>See your position on the waitlist</li>
+                    <li>Track your chances to win $10 credit</li>
                     </ul>
                 </div>
                 

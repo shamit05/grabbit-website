@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import WaitlistPageContent from '../../components/WaitlistPageContent'
+import SkeletonLoader from '../../components/SkeletonLoader'
 
 export const metadata: Metadata = {
   title: 'Join the Waitlist - Grabbit',
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function WaitlistPage() {
   return (
-    <Suspense fallback={<div></div>}>
+    <Suspense fallback={<SkeletonLoader variant="form" />}>
       <WaitlistPageContent />
     </Suspense>
   )

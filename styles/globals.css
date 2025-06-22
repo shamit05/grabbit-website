@@ -274,23 +274,6 @@ html {
     box-shadow: none;
 }
 
-.mobile-menu-overlay::before {
-    content: '×';
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    font-size: 2rem;
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 300;
-    cursor: pointer;
-    z-index: 1001;
-    transition: color 0.3s ease;
-}
-
-.mobile-menu-overlay::before:hover {
-    color: #ff6b35;
-}
-
 .mobile-nav-links {
     display: flex;
     flex-direction: column;
@@ -316,6 +299,11 @@ html {
 
 .mobile-nav-links a:hover {
     color: #ff6b35;
+}
+
+.mobile-nav-links a.active {
+    color: #ff6b35;
+    font-weight: 700;
 }
 
 .mobile-buttons {
@@ -1213,9 +1201,6 @@ html {
         max-width: none;
         padding: 0.7rem 1.5rem;
         border-radius: 20px;
-        background: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(20px) saturate(150%);
-        -webkit-backdrop-filter: blur(20px) saturate(150%);
     }
     
     .logo-text {
@@ -1797,5 +1782,254 @@ html {
     
     .social-links {
         justify-content: center;
+    }
+}
+
+/* ===============================================
+   SKELETON LOADER STYLES - Dark Theme
+   =============================================== */
+
+.skeleton-container {
+    width: 100%;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at center, #1a1a1a 0%, #0f0f0f 100%);
+    color: #ffffff;
+    position: relative;
+}
+
+/* Base skeleton element with shimmer animation */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.06) 25%,
+        rgba(255, 107, 53, 0.08) 50%,
+        rgba(255, 255, 255, 0.06) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 2s infinite;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes skeletonShimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Dashboard skeleton styles */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.dashboard-header {
+    margin-bottom: 2rem;
+}
+
+.skeleton-title {
+    height: 2.5rem;
+    width: 250px;
+    margin-bottom: 0.5rem;
+}
+
+.skeleton-subtitle {
+    height: 1.25rem;
+    width: 180px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.skeleton-stat-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.skeleton-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.skeleton-number {
+    height: 2rem;
+    width: 80px;
+    margin-bottom: 0.5rem;
+}
+
+.skeleton-label {
+    height: 1rem;
+    width: 120px;
+}
+
+.skeleton-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.skeleton-card-title {
+    height: 1.5rem;
+    width: 200px;
+    margin-bottom: 1rem;
+}
+
+.skeleton-text {
+    height: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.skeleton-text:first-of-type {
+    width: 100%;
+}
+
+.skeleton-text:last-of-type {
+    width: 60%;
+}
+
+/* Waitlist form skeleton styles */
+.waitlist-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.waitlist-hero {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.skeleton-hero-title {
+    height: 3rem;
+    width: 400px;
+    margin: 0 auto 1rem;
+}
+
+.skeleton-hero-subtitle {
+    height: 1.5rem;
+    width: 300px;
+    margin: 0 auto 1rem;
+}
+
+.skeleton-count {
+    height: 1.25rem;
+    width: 200px;
+    margin: 0 auto;
+}
+
+.skeleton-form {
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.skeleton-input {
+    height: 3rem;
+    width: 100%;
+}
+
+.skeleton-button {
+    height: 3rem;
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* Hero page skeleton styles */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 600px;
+}
+
+.skeleton-hero-title {
+    height: 4rem;
+    width: 500px;
+    margin: 0 auto 1.5rem;
+}
+
+.skeleton-hero-subtitle {
+    height: 1.5rem;
+    width: 350px;
+    margin: 0 auto 1rem;
+}
+
+.skeleton-hero-description {
+    height: 1.25rem;
+    width: 450px;
+    margin: 0 auto 2rem;
+}
+
+.skeleton-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.skeleton-buttons .skeleton-button {
+    width: 150px;
+    height: 3rem;
+}
+
+/* Responsive skeleton styles */
+@media (max-width: 768px) {
+    .skeleton-container {
+        padding: 1rem;
+    }
+    
+    .dashboard-container,
+    .waitlist-container {
+        padding: 1rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .skeleton-hero-title {
+        width: 300px;
+        height: 3rem;
+    }
+    
+    .skeleton-hero-subtitle {
+        width: 250px;
+    }
+    
+    .skeleton-hero-description {
+        width: 280px;
+    }
+    
+    .skeleton-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .skeleton-buttons .skeleton-button {
+        width: 200px;
     }
 }

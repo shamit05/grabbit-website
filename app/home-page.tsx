@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import SkeletonLoader from '@/components/SkeletonLoader'
 
 function HomePageContent() {
   const searchParams = useSearchParams()
@@ -130,7 +131,7 @@ function HomePageContent() {
 
 export default function HomePage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<SkeletonLoader variant="page" />}>
       <HomePageContent />
     </Suspense>
   )

@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import EmailVerification from '../../components/EmailVerification'
+import SkeletonLoader from '../../components/SkeletonLoader'
 
 export const metadata: Metadata = {
   title: 'Verify Your Email - Grabbit',
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function VerifyEmailPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<SkeletonLoader variant="card" />}>
       <EmailVerification />
     </Suspense>
   )
