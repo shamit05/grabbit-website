@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import WaitlistDashboard from '../../components/WaitlistDashboard'
+import SkeletonLoader from '../../components/SkeletonLoader'
 
 export const metadata: Metadata = {
   title: 'Your Waitlist Dashboard - Grabbit',
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 function WaitlistDashboardWrapper() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<SkeletonLoader variant="dashboard" />}>
       <WaitlistDashboard />
     </Suspense>
   )
