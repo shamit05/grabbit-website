@@ -35,7 +35,7 @@ function HomePageContent() {
           <h1>Grabbit. Rethinking Delivery.</h1>
           <p className="subtitle">Community-powered delivery that saves time, money, and builds connections</p>
           <p className="description">
-            Join thousands of people waiting for the future of delivery. 
+            Join us for the future of delivery. 
             Sign up for our waitlist and get a chance to win $10!
           </p>
           <div className="hero-buttons">
