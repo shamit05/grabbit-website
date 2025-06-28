@@ -21,7 +21,7 @@ export default function WaitlistForm({ initialReferralCode }: WaitlistFormProps)
 
   const loadWaitlistCount = async () => {
     try {
-      const count = await getWaitlistCount()
+      const count = await getWaitlistCount() + 200;
       setWaitlistCount(count)
     } catch (error) {
       // Error loading waitlist count - will retry on next form submission

@@ -50,7 +50,7 @@ export default function WaitlistDashboard() {
 
   const loadWaitlistStats = async () => {
     try {
-      const count = await getWaitlistCount()
+      const count = await getWaitlistCount() + 200
       setWaitlistCount(count)
     } catch (error) {
       // Error loading stats - non-critical
@@ -142,21 +142,13 @@ export default function WaitlistDashboard() {
                 <span>will be randomly selected</span>
               </div>
               <div className="lottery-detail">
-                <strong>$Dollar Each</strong>
+                <strong>$10 Each</strong>
                 <span>Grabbit credit prize</span>
               </div>
               <div className="lottery-detail">
                 <strong>At Launch</strong>
                 <span>Winners announced when we go live</span>
               </div>
-            </div>
-            <div className="odds-info">
-              <p>
-                <strong>Your Odds:</strong> {user.points} ticket{user.points !== 1 ? 's' : ''} out of all tickets distributed
-              </p>
-              <p className="odds-note">
-                More tickets = better chances! Share your referral link to earn more.
-              </p>
             </div>
           </div>
 
