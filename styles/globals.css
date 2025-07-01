@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 /* 
  * Grabbit Website - Main CSS Entry Point
@@ -22,3 +20,4 @@
 @import './unsubscribe.css';
 @import './error.css';
 @import './responsive.css';
+@import './blog.css';

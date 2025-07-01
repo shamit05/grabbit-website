@@ -1,0 +1,92 @@
+/* ===============================================
+   BLOG PAGE - Grabbit Website Dark Theme
+   =============================================== */
+
+.blog-bg {
+  background: radial-gradient(ellipse at center, #1a1a1a 0%, #0f0f0f 100%);
+  min-height: 100vh;
+}
+
+.blog-article {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.blog-meta p {
+  color: #cccccc;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.blog-content h2,
+.blog-content h3 {
+  color: #ff6b35;
+  margin-top: 2.5rem;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+}
+
+.blog-content h2 {
+  font-size: 2rem;
+}
+
+.blog-content h3 {
+  font-size: 1.3rem;
+}
+
+.blog-content p {
+  color: #cccccc;
+  font-size: 1.08rem;
+  margin-bottom: 1.2rem;
+}
+
+.blog-content ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.blog-content li {
+  color: #cccccc;
+  margin-bottom: 0.7rem;
+  font-size: 1.05rem;
+}
+
+.blog-content blockquote {
+  border-left: 4px solid #ff6b35;
+  padding-left: 1rem;
+  color: #ffb380;
+  font-style: italic;
+  margin: 2rem 0;
+}
+
+.blog-content .bg-blue-50,
+.blog-content .bg-green-50,
+.blog-content .bg-yellow-50 {
+  background: rgba(255, 107, 53, 0.08);
+  border-left: 4px solid #ff6b35;
+  color: #ffb380;
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.blog-cta {
+  background: linear-gradient(135deg, #ff6b35, #ff8800);
+  color: #fff;
+  padding: 2.5rem 1.5rem;
+  border-radius: 18px;
+  text-align: center;
+  margin: 3rem 0 2rem 0;
+}
+
+.blog-cta h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.blog-cta p {
+  color: #fff;
+  margin-bottom: 1.5rem;
+}

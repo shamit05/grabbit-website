@@ -2,12 +2,6 @@
  * Base styles - Core layout, typography, and global elements
  */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 html {
     scroll-behavior: smooth;
     background-color: #0f0f0f;
