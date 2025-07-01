@@ -364,8 +364,7 @@ export async function sendMagicLinkEmail(email: string, magicToken: string): Pro
                 <p>This email was sent to ${email} because you signed up for the Grabbit waitlist.</p>
                 <p><strong>Grabbit</strong> - Community-powered delivery, coming soon!</p>
                 <p>
-                  <a href="${generateUnsubscribeLink(email)}&confirm=true" style="color: #999; text-decoration: underline; font-size: 12px;">One-click unsubscribe</a> | 
-                  <a href="${generateUnsubscribeLink(email)}" style="color: #999; text-decoration: underline; font-size: 12px;">Manage preferences</a>
+                  <a href="${generateUnsubscribeLink(email)}&confirm=true" style="color: #999; text-decoration: underline; font-size: 12px;">Unsubscribe</a>
                 </p>
                 </div>
             </div>
@@ -393,8 +392,7 @@ export async function sendMagicLinkEmail(email: string, magicToken: string): Pro
             Thanks,
             The Grabbit Team
             
-            One-click unsubscribe: ${generateUnsubscribeLink(email)}&confirm=true
-            Manage preferences: ${generateUnsubscribeLink(email)}
+            Unsubscribe: ${generateUnsubscribeLink(email)}&confirm=true
         `
         }
     };

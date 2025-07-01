@@ -92,7 +92,7 @@ export default function UnsubscribeContent() {
             <i className="fas fa-check-circle"></i>
           </div>
           <h1>Successfully Unsubscribed</h1>
-          <p>You have been removed from our email list. You will no longer receive emails from Grabbit.</p>
+          <p>You have been removed from our email list. You will no longer receive promotional or marketing emails from Grabbit.</p>
           <p>If you change your mind, you can always rejoin our waitlist.</p>
           <div className="unsubscribe-actions">
             <Link href="/" className="btn-primary">Back to Home</Link>
