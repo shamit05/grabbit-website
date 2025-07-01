@@ -1,0 +1,69 @@
+/* ===============================================
+   SKELETON LOADER STYLES - Dark Theme
+   =============================================== */
+
+.skeleton-container {
+    width: 100%;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at center, #1a1a1a 0%, #0f0f0f 100%);
+    color: #ffffff;
+    position: relative;
+}
+
+/* Base skeleton element with shimmer animation */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.06) 25%,
+        rgba(255, 107, 53, 0.08) 50%,
+        rgba(255, 255, 255, 0.06) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 2s infinite;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Skeleton Text Elements */
+.skeleton-text {
+    height: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.skeleton-text:first-of-type {
+    width: 100%;
+}
+
+.skeleton-text:last-of-type {
+    width: 60%;
+}
+
+/* Responsive skeleton styles */
+@media (max-width: 768px) {
+    .skeleton-container {
+        padding: 1rem;
+    }
+    
+    .skeleton-hero-title {
+        width: 300px;
+        height: 3rem;
+    }
+    
+    .skeleton-hero-subtitle {
+        width: 250px;
+    }
+    
+    .skeleton-hero-description {
+        width: 280px;
+    }
+    
+    .skeleton-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .skeleton-buttons .skeleton-button {
+        width: 200px;
+    }
+}

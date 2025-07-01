@@ -1,0 +1,51 @@
+/* ===============================================
+   ERROR PAGES - Grabbit Website Dark Theme
+   =============================================== */
+
+/* Page Layout Structure */
+.page-layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    padding-top: 120px; /* Space below fixed header */
+}
+
+/* Error Page Styles */
+.error-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+}
+
+.error-page .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.error-page .display-1 {
+    font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 800;
+    color: #ff6b35;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ff6b35, #ff8a50);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.error-page .lead {
+    font-size: 1.3rem;
+    color: #cccccc;
+    margin-bottom: 30px;
+}
+
+.error-page .text-center {
+    text-align: center;
+}

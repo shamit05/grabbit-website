@@ -1,0 +1,161 @@
+/* ===============================================
+   BUTTONS - Grabbit Website
+   =============================================== */
+
+/* Primary Button - Orange Gradient */
+.download-btn, .btn-primary {
+    background: linear-gradient(135deg, #ff6b35, #ff8800) !important;
+    color: white !important;
+    padding: 0.7rem 1.5rem;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.download-btn:hover, .btn-primary:hover {
+    opacity: 0.9;
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+    background: linear-gradient(135deg, #ff8800, #ffaa00) !important;
+}
+
+/* Secondary Button - Transparent with Orange Border */
+.btn-secondary {
+    background: transparent;
+    color: #ff6b35;
+    padding: 0.7rem 1.5rem;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 2px solid rgba(255, 107, 53, 0.4);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 107, 53, 0.1);
+    border-color: rgba(255, 107, 53, 0.6);
+    transform: translateY(-2px);
+}
+
+/* Dashboard Secondary Button */
+.btn-secondary {
+    background: rgba(255, 107, 53, 0.1);
+    color: #ff6b35;
+    padding: 12px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 2px solid rgba(255, 107, 53, 0.2);
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 107, 53, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Form Submit Button */
+.submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #ff6b35, #ff8800);
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    margin-top: 10px;
+}
+
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+    background: linear-gradient(135deg, #ff7a45, #ff9900);
+}
+
+.submit-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Copy Button */
+.copy-btn {
+    background: #ff6b35;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.copy-btn:hover {
+    background: #e55a2b;
+    transform: translateY(-1px);
+}
+
+/* Share Buttons */
+.share-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.share-btn {
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.share-btn.twitter {
+    background: #1da1f2;
+    color: white;
+}
+
+.share-btn.facebook {
+    background: #4267b2;
+    color: white;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Unsubscribe Button */
+.unsubscribe-btn {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.unsubscribe-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

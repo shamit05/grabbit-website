@@ -1,0 +1,139 @@
+/* ===============================================
+   FEATURES SECTION - Grabbit Website Dark Theme
+   =============================================== */
+
+/* Main Sections */
+.about-section, .features, .mission-section, .final-cta-section {
+    padding: 100px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-section {
+    margin-top: 60px;
+}
+
+.features {
+    margin-top: 80px;
+}
+
+.mission-section {
+    margin-top: 80px;
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-header h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.section-header p {
+    font-size: 1.2rem;
+    color: #cccccc;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.feature-card {
+    background: rgba(15, 15, 15, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(255, 107, 53, 0.25);
+    border-color: rgba(255, 107, 53, 0.4);
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #ff6b35, #ff8800);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.feature-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: #cccccc;
+    line-height: 1.6;
+}
+
+/* Mission Section */
+.mission-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.mission-content blockquote {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: #ff6b35;
+    margin-bottom: 30px;
+    line-height: 1.4;
+}
+
+.mission-content p {
+    font-size: 1.1rem;
+    color: #cccccc;
+    line-height: 1.7;
+}
+
+/* Final CTA Section */
+.final-cta-section {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 138, 80, 0.1));
+    border-radius: 30px;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.cta-content h2 {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: #ff6b35;
+    margin-bottom: 15px;
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    color: #cbd5e1;
+    margin-bottom: 30px;
+}
+
+.scroll-to-waitlist {
+    display: inline-block;
+    text-decoration: none;
+}

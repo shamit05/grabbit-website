@@ -14,6 +14,7 @@ export default function WaitlistForm({ initialReferralCode }: WaitlistFormProps)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
   const [waitlistCount, setWaitlistCount] = useState(0)
+  const [isExistingUser, setIsExistingUser] = useState(false)
 
   useEffect(() => {
     loadWaitlistCount()
@@ -46,7 +47,10 @@ export default function WaitlistForm({ initialReferralCode }: WaitlistFormProps)
       const cleanReferralCode = trimmedReferralCode || undefined
       
       // Add to waitlist and send magic link email
-      await addToWaitlist(email, cleanReferralCode)
+      const result = await addToWaitlist(email, cleanReferralCode)
+      
+      // Check if this was an existing user
+      setIsExistingUser(result.isExistingUser || false)
       
       // Show success message
       setSubmitStatus('success')
@@ -54,21 +58,11 @@ export default function WaitlistForm({ initialReferralCode }: WaitlistFormProps)
       // Refresh waitlist count
       await loadWaitlistCount()
     } catch (error) {
-      if (error instanceof Error && error.message.includes('already signed up but not verified')) {
-        // Special case: resent verification email
-        setSubmitStatus('success')
-        setErrorMessage('')
-      } else if (error instanceof Error && error.message.includes('already registered and verified')) {
-        // Special case: already verified user
-        setSubmitStatus('error')
-        setErrorMessage('This email is already registered! If you need to access your dashboard, check your email for the original magic link or contact support.')
+      setSubmitStatus('error')
+      if (error instanceof Error) {
+        setErrorMessage(error.message)
       } else {
-        setSubmitStatus('error')
-        if (error instanceof Error) {
-          setErrorMessage(error.message)
-        } else {
-          setErrorMessage('An unexpected error occurred. Please try again.')
-        }
+        setErrorMessage('An unexpected error occurred. Please try again.')
       }
     } finally {
       setIsSubmitting(false)
@@ -80,12 +74,28 @@ export default function WaitlistForm({ initialReferralCode }: WaitlistFormProps)
       {submitStatus === 'success' ? (
         <div className="success-state">
           <div className="success-card">
-            <h3><i className="fas fa-envelope"></i> Check Your Email!</h3>
+            <h3><i className="fas fa-envelope"></i> {isExistingUser ? 'Welcome Back!' : 'Check Your Email!'}</h3>
             <p>
-              We've sent a verification email to <strong>{email}</strong>
+              {isExistingUser ? (
+                <>
+                  You're already registered! We've sent a new link to <strong>{email}</strong>
+                </>
+              ) : (
+                <>
+                  We've sent a verification email to <strong>{email}</strong>
+                </>
+              )}
             </p>
             <p>
-              Click the link in your email to access your waitlist dashboard and get your raffle tickets!
+              {isExistingUser ? (
+                <>
+                  Click the link in your email to access your dashboard. You've also been re-subscribed to receive Grabbit updates.
+                </>
+              ) : (
+                <>
+                  Click the link in your email to access your waitlist dashboard and get your raffle tickets!
+                </>
+              )}
             </p>
             <small>Don't see the email? Check your spam folder or try signing up again to get another email.</small>
           </div>

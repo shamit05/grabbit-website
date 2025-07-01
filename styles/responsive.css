@@ -1,0 +1,251 @@
+/* ===============================================
+   RESPONSIVE DESIGN - Mobile and Tablet Styles
+   =============================================== */
+
+/* Mobile Responsiveness for Waitlist Page */
+@media (max-width: 768px) {
+    .waitlist-page-content {
+        padding: 30px 20px 50px;
+    }
+    
+    .waitlist-header {
+        margin-bottom: 50px;
+    }
+    
+    .waitlist-header h1 {
+        font-size: clamp(2rem, 8vw, 3rem);
+        margin-bottom: 20px;
+    }
+    
+    .waitlist-form-section {
+        margin-bottom: 50px;
+    }
+    
+    .waitlist-form {
+        padding: 35px 25px;
+        border-radius: 20px;
+    }
+    
+    .lottery-section {
+        padding: 35px 25px;
+        margin-bottom: 40px;
+    }
+    
+    .lottery-info {
+        gap: 25px;
+    }
+    
+    .how-it-works {
+        padding: 35px 25px;
+    }
+    
+    .lottery-info-section {
+        padding: 40px 25px;
+        margin-top: 60px;
+    }
+    
+    .lottery-steps {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+    
+    .lottery-step {
+        padding: 35px 20px;
+    }
+    
+    .step-number {
+        width: 60px;
+        height: 60px;
+        font-size: 1.4rem;
+    }
+    
+    .points-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .waitlist-page-content {
+        padding: 25px 15px 40px;
+    }
+    
+    .waitlist-header {
+        margin-bottom: 40px;
+    }
+    
+    .waitlist-form {
+        padding: 30px 20px;
+        border-radius: 18px;
+    }
+    
+    .lottery-section {
+        padding: 30px 20px;
+        margin-bottom: 35px;
+    }
+    
+    .how-it-works {
+        padding: 30px 20px;
+        margin-bottom: 35px;
+    }
+    
+    .lottery-info-section {
+        padding: 35px 20px;
+        margin-top: 50px;
+    }
+    
+    .lottery-step {
+        padding: 30px 15px;
+    }
+    
+    .step-number {
+        width: 55px;
+        height: 55px;
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+    
+    .step-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    .step-content p {
+        font-size: 0.95rem;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+    }
+    
+    .lottery-info {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+}
+
+/* Responsive Design - Glassy Pill Header */
+@media (max-width: 900px) {
+    .header {
+        top: 1rem;
+        width: calc(100% - 2rem);
+        max-width: none;
+        padding: 0.7rem 1.5rem;
+        border-radius: 20px;
+    }
+    
+    .logo-text {
+        font-size: 1.3rem;
+    }
+    
+    .logo img {
+        height: 26px;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .hamburger {
+        display: flex;
+    }
+    
+    .download-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        border-radius: 20px;
+    }
+    
+    .hero, .waitlist-hero-section {
+        padding: 40px 20px 60px; /* Reduced since main-content provides top padding */
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .lottery-info {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .points-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .main-content {
+        padding-top: 100px; /* Reduced spacing on mobile */
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        top: 0.5rem;
+        width: calc(100% - 1rem);
+        padding: 0.6rem 1.2rem;
+        border-radius: 16px;
+    }
+    
+    .logo-text {
+        font-size: 1.2rem;
+    }
+    
+    .logo img {
+        height: 24px;
+    }
+    
+    .download-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        gap: 0.3rem;
+    }
+    
+    .waitlist-container {
+        padding: 20px 10px;
+    }
+    
+    .about-section, .features, .mission-section, .final-cta-section {
+        padding: 60px 20px;
+    }
+    
+    .main-content {
+        padding-top: 90px; /* Even more reduced spacing on smaller screens */
+    }
+}
+
+/* Dashboard Mobile Responsive */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 100px 15px 40px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .lottery-details {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .share-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .referral-link {
+        flex-direction: column;
+    }
+    
+    .earn-methods {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .lottery-info-card, .referral-section, .earn-more-section {
+        padding: 30px 20px;
+    }
+}

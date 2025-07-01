@@ -22,6 +22,7 @@ export interface WaitlistUser {
   magicToken: string;
   emailVerified: boolean;
   referralUsed: boolean; // Flag to prevent multiple referral point awards
+  subscribed: boolean; // Email subscription status
 }
 
 // Generate unique referral code
@@ -55,7 +56,7 @@ export async function validateReferralCode(referralCode: string): Promise<boolea
 }
 
 // Add user to waitlist and send magic link email
-export async function addToWaitlist(email: string, referralCode?: string): Promise<{ success: boolean }> {
+export async function addToWaitlist(email: string, referralCode?: string): Promise<{ success: boolean; isExistingUser?: boolean }> {
   const usersRef = collection(db, 'waitlist');
   
   // Check if email already exists
@@ -65,13 +66,16 @@ export async function addToWaitlist(email: string, referralCode?: string): Promi
   if (!existingUsers.empty) {
     const existingUser = existingUsers.docs[0].data() as WaitlistUser;
     
-    if (existingUser.emailVerified) {
-      throw new Error('Email already registered and verified. Please check your dashboard or use a different email.');
-    } else {
-      // Email exists but not verified - resend verification email
-      await sendMagicLinkEmail(email, existingUser.magicToken);
-      throw new Error('Email already signed up but not verified. We\'ve sent another verification email - please check your inbox and click the link to complete registration.');
-    }
+    // Re-subscribe existing user and send magic link
+    const userDocRef = doc(db, 'waitlist', existingUsers.docs[0].id);
+    await setDoc(userDocRef, {
+      subscribed: true // Re-subscribe them to emails
+    }, { merge: true });
+    
+    await sendMagicLinkEmail(email, existingUser.magicToken);
+    
+    // Return success with flag indicating existing user
+    return { success: true, isExistingUser: true };
   }
 
   // If referral code provided, validate it exists
@@ -95,7 +99,8 @@ export async function addToWaitlist(email: string, referralCode?: string): Promi
     joinedAt: serverTimestamp(),
     magicToken,
     emailVerified: false,
-    referralUsed: false // Flag to prevent multiple referral updates
+    referralUsed: false, // Flag to prevent multiple referral updates
+    subscribed: true // Automatically subscribe to email updates
   };
 
   // Add new user (unverified)
@@ -104,7 +109,7 @@ export async function addToWaitlist(email: string, referralCode?: string): Promi
   // Send magic link email via Firebase extension
   await sendMagicLinkEmail(email, magicToken);
   
-  return { success: true };
+  return { success: true, isExistingUser: false };
 }
 
 // Verify email and activate user on dashboard load
@@ -330,19 +335,19 @@ export async function sendMagicLinkEmail(email: string, magicToken: string): Pro
                 <div class="content">
                 <h2>Click to Access Your Dashboard</h2>
                 <p>Hi there!</p>
-                <p>Thanks for joining the Grabbit waitlist! Click the button below to access your dashboard and complete your registration:</p>
+                <p>Here's your secure access link to your Grabbit waitlist dashboard. If you're already registered, we've re-subscribed you to receive important updates about our launch!</p>
                 
                 <a href="${magicLink}" class="button">
                     Access My Dashboard & Get Tickets
                 </a>
                 
                 <div class="features">
-                    <h3>What happens when you click?</h3>
+                    <h3>What's in your dashboard?</h3>
                     <ul>
-                    <li>You'll get 1 raffle ticket for joining</li>
-                    <li>Extra tickets for any referrals</li>
-                    <li>View your referral code to share with friends</li>
-                    <li>See your position on the waitlist</li>
+                    <li>View your raffle tickets and entries</li>
+                    <li>See extra tickets from referrals</li>
+                    <li>Get your referral code to share with friends</li>
+                    <li>Check your position on the waitlist</li>
                     <li>Track your chances to win $10 credit</li>
                     </ul>
                 </div>
@@ -358,6 +363,10 @@ export async function sendMagicLinkEmail(email: string, magicToken: string): Pro
                 <div class="footer">
                 <p>This email was sent to ${email} because you signed up for the Grabbit waitlist.</p>
                 <p><strong>Grabbit</strong> - Community-powered delivery, coming soon!</p>
+                <p>
+                  <a href="${generateUnsubscribeLink(email)}&confirm=true" style="color: #999; text-decoration: underline; font-size: 12px;">One-click unsubscribe</a> | 
+                  <a href="${generateUnsubscribeLink(email)}" style="color: #999; text-decoration: underline; font-size: 12px;">Manage preferences</a>
+                </p>
                 </div>
             </div>
             </body>
@@ -366,15 +375,15 @@ export async function sendMagicLinkEmail(email: string, magicToken: string): Pro
         text: `
             Welcome to Grabbit!
             
-            Thanks for joining the waitlist! Click the link below to access your dashboard and complete your registration:
+            Here's your secure access link to your Grabbit waitlist dashboard. If you're already registered, we've re-subscribed you to receive important updates about our launch!
             
             ${magicLink}
             
             What happens when you click?
-            - You'll get 1 raffle ticket for joining
-            - Extra tickets for any referrals  
-            - View your referral code to share with friends
-            - See your position on the waitlist
+            - View your raffle tickets and entries
+            - See extra tickets from referrals  
+            - Get your referral code to share with friends
+            - Check your position on the waitlist
             - Track your chances to win $10 credit
             
             Remember: 5 lucky winners will receive $10 Grabbit credit when we launch!
@@ -383,6 +392,9 @@ export async function sendMagicLinkEmail(email: string, magicToken: string): Pro
             
             Thanks,
             The Grabbit Team
+            
+            One-click unsubscribe: ${generateUnsubscribeLink(email)}&confirm=true
+            Manage preferences: ${generateUnsubscribeLink(email)}
         `
         }
     };
@@ -415,4 +427,35 @@ export async function sendMagicLinkEmail(email: string, magicToken: string): Pro
     console.error('❌ Error sending magic link email:', error);
     // Don't throw error to avoid breaking the signup flow
   }
+}
+
+// Unsubscribe user from email communications
+export async function unsubscribeUser(email: string): Promise<{ success: boolean; message: string }> {
+  try {
+    const usersRef = collection(db, 'waitlist');
+    const userQuery = query(usersRef, where('email', '==', email));
+    const userDocs = await getDocs(userQuery);
+    
+    if (userDocs.empty) {
+      return { success: false, message: 'Email not found in our system.' };
+    }
+    
+    const userDoc = userDocs.docs[0];
+    await setDoc(doc(db, 'waitlist', userDoc.id), {
+      subscribed: false
+    }, { merge: true });
+    
+    return { success: true, message: 'You have been successfully unsubscribed from email communications.' };
+  } catch (error) {
+    console.error('Error unsubscribing user:', error);
+    return { success: false, message: 'An error occurred while processing your unsubscribe request.' };
+  }
+}
+
+// Generate unsubscribe link
+export function generateUnsubscribeLink(email: string): string {
+  if (typeof window !== 'undefined') {
+    return `${window.location.origin}/unsubscribe?email=${encodeURIComponent(email)}`;
+  }
+  return `/unsubscribe?email=${encodeURIComponent(email)}`;
 }

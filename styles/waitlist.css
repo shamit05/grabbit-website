@@ -1,0 +1,325 @@
+/* ===============================================
+   WAITLIST PAGES - Grabbit Website Dark Theme
+   =============================================== */
+
+/* Waitlist Container */
+.waitlist-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.waitlist-hero {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.waitlist-hero h1, .waitlist-hero h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: #ff6b35;
+    margin-bottom: 15px;
+}
+
+.waitlist-hero .subtitle {
+    font-size: 1.2rem;
+    color: #cccccc;
+    margin-bottom: 15px;
+}
+
+.waitlist-count {
+    font-size: 1rem;
+    color: #ff6b35;
+    font-weight: 600;
+    background: rgba(255, 107, 53, 0.1);
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+/* Waitlist Form Section */
+.waitlist-form-section {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 60px;
+}
+
+.waitlist-count-display {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.waitlist-count-display .waitlist-count {
+    font-size: 1.1rem;
+    color: #ff6b35;
+    font-weight: 600;
+    background: rgba(255, 107, 53, 0.1);
+    padding: 15px 25px;
+    border-radius: 30px;
+    display: inline-block;
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+/* Waitlist Page Layout */
+.waitlist-page {
+    position: relative;
+    min-height: calc(100vh - 120px);
+    overflow: hidden;
+}
+
+.waitlist-page-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.waitlist-header {
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.waitlist-header h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    color: #ff6b35;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #ff6b35, #ff8a50);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+}
+
+.waitlist-header .subtitle {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    color: #ffffff;
+    margin-bottom: 24px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.waitlist-header .description {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: #cccccc;
+    line-height: 1.7;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Lottery Section */
+.lottery-section {
+    background: rgba(255, 107, 53, 0.08);
+    border: 1px solid rgba(255, 107, 53, 0.25);
+    border-radius: 24px;
+    padding: 45px 35px;
+    text-align: center;
+    margin-bottom: 50px;
+    backdrop-filter: blur(10px);
+}
+
+.lottery-section h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ff6b35;
+    margin-bottom: 20px;
+}
+
+.lottery-description {
+    color: #cccccc;
+    margin-bottom: 35px;
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+.lottery-info {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.lottery-stat {
+    text-align: center;
+    min-width: 100px;
+}
+
+.stat-number {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #ff6b35;
+    display: block;
+    line-height: 1.1;
+}
+
+.stat-label {
+    font-size: 0.95rem;
+    color: #cccccc;
+    margin-top: 8px;
+    font-weight: 500;
+}
+
+/* How It Works Section */
+.how-it-works {
+    background: rgba(15, 15, 15, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    border-radius: 24px;
+    padding: 45px 35px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    margin-bottom: 40px;
+}
+
+.how-it-works h3 {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 40px;
+}
+
+.points-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 35px;
+    align-items: start;
+}
+
+.point-item {
+    text-align: center;
+    padding: 20px 15px;
+}
+
+.point-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.point-item h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.point-item p {
+    color: #cccccc;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+/* Lottery Info Section */
+.lottery-info-section {
+    margin-top: 80px;
+    padding: 55px 40px;
+    background: rgba(15, 15, 15, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    border-radius: 28px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.lottery-info-section h2 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: #ff6b35;
+    margin-bottom: 50px;
+    text-align: center;
+    background: linear-gradient(135deg, #ff6b35, #ff8a50);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.lottery-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 45px;
+    margin-top: 40px;
+}
+
+.lottery-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 25px;
+    background: rgba(255, 107, 53, 0.06);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 107, 53, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.lottery-step:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 107, 53, 0.3);
+    background: rgba(255, 107, 53, 0.1);
+    box-shadow: 0 12px 30px rgba(255, 107, 53, 0.2);
+}
+
+.step-number {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #ff6b35, #ff8800);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.step-content p {
+    color: #cccccc;
+    line-height: 1.6;
+    font-size: 1rem;
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+/* Waitlist Skeleton Styles */
+.waitlist-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.skeleton-hero-title {
+    height: 3rem;
+    width: 400px;
+    margin: 0 auto 1rem;
+}
+
+.skeleton-hero-subtitle {
+    height: 1.5rem;
+    width: 300px;
+    margin: 0 auto 1rem;
+}
+
+.skeleton-count {
+    height: 1.25rem;
+    width: 200px;
+    margin: 0 auto;
+}
