@@ -61,7 +61,7 @@ export default function IntroducingGrabbitBlog() {
             <h2>Why We're Excited</h2>
             <p>
               Grabbit taps into the goodwill of campus communities, making local commerce more sustainable and human than traditional gig-delivery platforms. If you're already at the store, bringing back a classmate's burrito (or sticky notes) should be easy—and now it is.
-            </ul>
+            </p>
             
             <h3>Why the status quo isn't sustainable (literally)</h3>
             <p>
