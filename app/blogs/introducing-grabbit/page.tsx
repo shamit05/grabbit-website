@@ -63,7 +63,7 @@ export default function IntroducingGrabbitBlog() {
               Grabbit taps into the goodwill of campus communities, making local commerce more sustainable and human than traditional gig-delivery platforms. If you're already at the store, bringing back a classmate's burrito (or sticky notes) should be easy—and now it is.
             </p>
             
-            <h3>Why the status quo isn't sustainable (literally)</h3>
+            <h2>Why the status quo isn't sustainable (literally)</h2>
             <p>
               Traditional delivery platforms solve convenience with fleets of cars or motorcycles, mountains of packaging—and the planet pays the price.
             </p>
