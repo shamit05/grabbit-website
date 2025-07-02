@@ -38,49 +38,34 @@ export default function IntroducingGrabbitBlog() {
             
             <h3>How It Works</h3>
             <ul>
-              <li><strong>Live request board</strong> keeps every "Need anything from Target?" in one place.</li>
-              <li><strong>Post your request once</strong> and it stays there until someone is nearby.</li>
-              <li><strong>Location-based notifications</strong> notify helpers only when they're already at or near the store.</li>
+              <li><strong>A live request board</strong> keeps every request from friends in your Grabbit group in one place.</li>
+              <li><strong>Post your request once</strong> and it lays dormant on the store until a friend walks by who can grab it.</li>
+              <li><strong>Location-based notifications</strong> will ping your friends/helpers on their phone to make them aware of near by requests.</li>
               <li>No one has to check the app constantly; the right person gets notified at the right time.</li>
-              <li><strong>Automatic pre-payment</strong> removes the hassle of IOUs.</li>
+              <li><strong>Automatic pre-payment</strong> removes the hassle of "hey, can you pay me back for that burrito?"</li>
               <li>Requesters pay up front, helpers are reimbursed right away.</li>
+              <li><strong>Drop-off on the way home.</strong> Because helpers are already headed back to the same hall, delivery feels friction-free.</li>
             </ul>
 
             <p className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-              The result? Errands get done while you focus on other things, it costs less than delivery apps, and whoever's already out can earn a bit extra.
+              The result? Errands get done while you focus on other things, it costs less than delivery apps, and whoever's already out anyways can earn some cash on the side.
             </p>
 
             <h2>Where We Are Now</h2>
             <ul>
               <li><strong>Beta testing</strong> with close friends and family.</li>
-              <li><strong>Working on incentives:</strong> we're trying out tip options and non-cash rewards to keep helping feel good.</li>
+              <li><strong>Working on our incentive structure:</strong> We're trying out tip options and non-cash rewards.</li>
               <li><strong>Always improving</strong> and we'd love your feedback.</li>
             </ul>
 
             <h2>Why We're Excited</h2>
             <p>
               Grabbit taps into the goodwill of campus communities, making local commerce more sustainable and human than traditional gig-delivery platforms. If you're already at the store, bringing back a classmate's burrito (or sticky notes) should be easy—and now it is.
-            </p>
-
-            <h3>What Grabbit does</h3>
-            <p>
-              Grabbit makes it simple for people who are already out on errands to pick up things for others in their community.
-            </p>
-            
-            <ul>
-              <li><strong>Post once, forget it.</strong> Drop your request on a live, auto-updating board shared with your dorm or friend group.</li>
-              <li><strong>Smart notifications.</strong> When someone from that group walks into the right store or restaurant, Grabbit sends them a location-based notification. No more endless group texts or "anyone going to CVS?" spam.</li>
-              <li><strong>Automatic pre-pay.</strong> The requester pays up front and the helper gets paid back instantly, so you never have to chase someone for $12 in sticky notes.</li>
-              <li><strong>Drop-off on the way home.</strong> Because helpers are already headed back to the same hall, delivery feels friction-free.</li>
             </ul>
-
-            <p className="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
-              The result? You get your errands done while you study, it costs less than gig-delivery apps, and whoever's already out makes a little extra cash.
-            </p>
-
+            
             <h3>Why the status quo isn't sustainable (literally)</h3>
             <p>
-              Traditional delivery platforms solve convenience with fleets of cars and mountains of packaging—and the planet pays the price.
+              Traditional delivery platforms solve convenience with fleets of cars or motorcycles, mountains of packaging—and the planet pays the price.
             </p>
             
             <ul>
@@ -105,18 +90,17 @@ export default function IntroducingGrabbitBlog() {
 
             <h3>What we're experimenting with next</h3>
             <ul>
-              <li><strong>Incentives.</strong> We're trying out tip options and non-cash rewards to keep helping feel good—and fair.</li>
               <li><strong>Speed.</strong> Community delivery isn't instant (yet). We're working on ways to expand request pools beyond your immediate friend circle to shorten wait times.</li>
               <li><strong>Bigger circles.</strong> Once dorms are running smoothly, we'll open campus-wide groups and look at partnerships with nearby neighborhoods.</li>
             </ul>
 
             <p>
-              We're still early, and Grabbit is evolving every day. But we're convinced that community-powered delivery is the healthier, greener future.
+              We're still early, and Grabbit is evolving every day. But we're convinced that community-powered delivery should be the future.
             </p>
 
             <h2>Join the journey</h2>
             <p>
-              We built Grabbit because we needed it ourselves—and because the current delivery model is neither sustainable nor truly convenient. If that sounds like something you'd want:
+              We built Grabbit because we needed it ourselves—and because it should exist. If you want to join us on our mission, please consider signing up to our waitlist:
             </p>
             
             <Link 
