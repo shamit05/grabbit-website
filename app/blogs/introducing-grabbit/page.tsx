@@ -21,7 +21,7 @@ export default function IntroducingGrabbitBlog() {
             </p>
             
             <p>
-              That light-bulb moment became Grabbit, a mobile app that turns everyday store runs into quick favors for friends and neighbors.
+              That moment became Grabbit, a mobile app that turns everyday store runs into quick favors for friends and neighbors.
             </p>
 
             <h2>The Problem</h2>
@@ -32,9 +32,8 @@ export default function IntroducingGrabbitBlog() {
 
             <h2>Our Solution</h2>
             
-            <h3>What Grabbit Does</h3>
             <p>
-              Grabbit makes it simple for people who are already out on errands to pick up things for others in their community.
+              Grabbit. Allowing people who are already out on errands to pick up things for others in their community.
             </p>
             
             <h3>How It Works</h3>
