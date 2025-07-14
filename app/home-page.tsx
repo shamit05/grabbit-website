@@ -53,7 +53,7 @@ function HomePageContent() {
           <p>
             Grabbit connects tight-knit communities to streamline everyday errands. 
             Let friends see what others need in real time and pool small requests, 
-            so one trip can help many — saving time and cutting out the hassle of those everyday must-haves.
+            so one trip can help many, saving time and cutting out the hassle of those everyday must-haves.
           </p>
         </div>
       </section>
