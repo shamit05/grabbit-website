@@ -109,8 +109,7 @@ export default function IntroducingGrabbitBlog() {
               >
                 Join the Grabbit Waitlist
               </Link>
-
-            </p>
+            
           </div>
         </article>
       </div>
