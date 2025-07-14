@@ -7,7 +7,7 @@ export default function IntroducingGrabbitBlog() {
         <article className="blog-article">
           <header className="mb-12">
             <h1>
-              Introducing Grabbit — Community-Powered Errands for Campus Life
+              Introducing Grabbit: Community-Powered Errands for Campus Life
             </h1>
             <div className="blog-meta mb-8">
               <p>July 1, 2025</p>
@@ -17,7 +17,7 @@ export default function IntroducingGrabbitBlog() {
 
           <div className="blog-content">
             <p>
-              Six weeks ago, a simple craving sparked an idea. Our co-founder Sebastian was up late, really wanting a burrito but too busy to go get one. When his roommate Alex walked in—burrito in hand—Sebastian thought: "If Alex had known I wanted one too, he could've just grabbed it for me."
+              Six weeks ago, a simple craving sparked an idea. Our co-founder Sebastian was up late, really wanting a burrito but too busy to go get one. When his roommate Alex walked in, burrito in hand, Sebastian thought: "If Alex had known I wanted one too, he could've just grabbed it for me."
             </p>
             
             <p>
@@ -60,19 +60,19 @@ export default function IntroducingGrabbitBlog() {
 
             <h2>Why We're Excited</h2>
             <p>
-              Grabbit taps into the goodwill of campus communities, making local commerce more sustainable and human than traditional gig-delivery platforms. If you're already at the store, bringing back a classmate's burrito (or sticky notes) should be easy—and now it is.
+              Grabbit taps into the goodwill of campus communities, making local commerce more sustainable and human than traditional gig-delivery platforms. If you're already at the store, bringing back a classmate's burrito (or sticky notes) should be easy. And now it is.
             </p>
             
             <h2>Why the status quo isn't sustainable (literally)</h2>
             <p>
-              Traditional delivery platforms solve convenience with fleets of cars or motorcycles, mountains of packaging—and the planet pays the price.
+              Traditional delivery platforms solve convenience with fleets of cars or motorcycles, mountains of packaging and the planet pays the price.
             </p>
             
             <ul>
-              <li>Last-mile deliveries now generate up to 40% of all e-commerce emissions—the most carbon-intensive leg of the trip. <em>(parcelandpostaltechnologyinternational.com)</em></li>
+              <li>Last-mile deliveries now generate up to 40% of all e-commerce emissions, the most carbon-intensive leg of the trip. <em>(parcelandpostaltechnologyinternational.com)</em></li>
               <li>A single passenger car or delivery vehicle emits about 4.6 metric tons of CO₂ every year. With roughly 1 million DoorDash drivers, that's 4.6 million tons from just one service. <em>(insights.workwave.com)</em></li>
               <li>On the waste side, the average consumer creates more than 10 kg of single-use plastic every year from food-delivery packaging alone. <em>(viable.earth)</em></li>
-              <li>In the U.S., restaurants go through nearly one trillion disposable food-service items each year—most of which come with take-out and delivery orders. <em>(axios.com)</em></li>
+              <li>In the U.S., restaurants go through nearly one trillion disposable food-service items each year, most of which come with take-out and delivery orders. <em>(axios.com)</em></li>
             </ul>
 
             <p className="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
@@ -100,7 +100,7 @@ export default function IntroducingGrabbitBlog() {
 
             <h2>Join the journey</h2>
             <p>
-              We built Grabbit because we needed it ourselves—and because it should exist. If you want to join us on our mission, please consider signing up to our waitlist:
+              If anything above sounds good to you, please consider signing up to our waitlist:
             </p>
             
             <Link 
@@ -110,8 +110,6 @@ export default function IntroducingGrabbitBlog() {
                 Join the Grabbit Waitlist
               </Link>
 
-            <p className="mt-4">
-              Together, we'll turn quick errands into everyday win-wins.
             </p>
           </div>
         </article>
