@@ -54,3 +54,5 @@ firestore.rules
 extensions/
 
 .firebase/
+
+*.md

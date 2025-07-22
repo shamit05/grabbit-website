@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { verifyEmailAndActivateUser, getWaitlistCount, WaitlistUser } from '../lib/waitlist'
+import { getOrVerifyUserByMagicToken, getWaitlistCount, WaitlistUser } from '../lib/waitlist'
 
 export default function WaitlistDashboard() {
   const searchParams = useSearchParams()
@@ -19,8 +19,8 @@ export default function WaitlistDashboard() {
     
     const loadUserData = async (token: string) => {
       try {
-        // This will verify email and activate user if not already done
-        const userData = await verifyEmailAndActivateUser(token)
+        // Optimized: Only call verify if not already verified
+        const userData = await getOrVerifyUserByMagicToken(token)
         if (userData) {
           setUser(userData)
           setShareableLink(`${window.location.origin}/waitlist?ref=${userData.referralCode}`)

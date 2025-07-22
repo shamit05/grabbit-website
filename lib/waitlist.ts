@@ -1,16 +1,26 @@
-// Waitlist functionality with Firebase
+// Optimized: Only call verifyEmailAndActivateUser if not already verified
+export async function getOrVerifyUserByMagicToken(token: string): Promise<WaitlistUser | null> {
+  // 1. Try to get the user document directly
+  const user = await getUserByMagicToken(token);
+  if (!user) return null;
+  if (user.emailVerified) {
+    return user;
+  }
+  // 2. If not verified, call the function to verify and activate
+  return await verifyEmailAndActivateUser(token);
+}
+// Waitlist functionality with Firebase - SECURE & OPTIMIZED VERSION
 import { db } from './firebase';
 import { 
   collection, 
   doc, 
-  setDoc, 
   getDocs, 
+  getDoc,
+  updateDoc,
   query, 
-  increment, 
-  where,
-  writeBatch,
-  serverTimestamp
+  where
 } from 'firebase/firestore';
+import { getFunctions, httpsCallable } from 'firebase/functions';
 
 export interface WaitlistUser {
   id: string;
@@ -19,23 +29,29 @@ export interface WaitlistUser {
   referredBy?: string | null;
   points: number;
   joinedAt: any; // Firestore timestamp
-  magicToken: string;
   emailVerified: boolean;
-  referralUsed: boolean; // Flag to prevent multiple referral point awards
-  subscribed: boolean; // Email subscription status
+  subscribed: boolean;
 }
 
-// Generate unique referral code
-export function generateReferralCode(): string {
-  return Math.random().toString(36).substring(2, 8).toUpperCase();
+// Get Firebase Functions instance (lazy initialization)
+function getFirebaseFunctions() {
+  if (typeof window === 'undefined') {
+    // Server-side: return null to avoid initialization
+    return null;
+  }
+  return getFunctions();
 }
 
-// Generate magic token for email links
-export function generateMagicToken(): string {
-  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+// Get callable functions (lazy initialization)
+function getCallableFunction(name: string) {
+  const functions = getFirebaseFunctions();
+  if (!functions) {
+    throw new Error('Firebase Functions not available on server side');
+  }
+  return httpsCallable(functions, name);
 }
 
-// Generate magic link for user dashboard access
+// Generate magic link for user dashboard access (client-side only for display)
 export function generateMagicLink(magicToken: string): string {
   if (typeof window !== 'undefined') {
     return `${window.location.origin}/waitlist-dashboard?token=${magicToken}`;
@@ -43,417 +59,184 @@ export function generateMagicLink(magicToken: string): string {
   return `/waitlist-dashboard?token=${magicToken}`;
 }
 
-// Validate referral code exists
-export async function validateReferralCode(referralCode: string): Promise<boolean> {
+// Add user to waitlist using secure Firebase Function (handles signup + email sending)
+export async function addToWaitlist(email: string, referralCode?: string): Promise<{ success: boolean; isExistingUser?: boolean; message?: string }> {
   try {
-    const usersRef = collection(db, 'waitlist');
-    const referrerQuery = query(usersRef, where('referralCode', '==', referralCode.trim().toUpperCase()));
-    const referrerDocs = await getDocs(referrerQuery);
-    return !referrerDocs.empty;
-  } catch (error) {
-    return false;
+    const signupToWaitlistFn = getCallableFunction('signupToWaitlist');
+    const result = await signupToWaitlistFn({ email, referralCode });
+    return result.data as { success: boolean; isExistingUser?: boolean; message?: string };
+  } catch (error: any) {
+    console.error('Error adding to waitlist:', error);
+    throw new Error(error.message || 'Failed to join waitlist. Please try again.');
   }
 }
 
-// Add user to waitlist and send magic link email
-export async function addToWaitlist(email: string, referralCode?: string): Promise<{ success: boolean; isExistingUser?: boolean }> {
-  const usersRef = collection(db, 'waitlist');
-  
-  // Check if email already exists
-  const existingUserQuery = query(usersRef, where('email', '==', email));
-  const existingUsers = await getDocs(existingUserQuery);
-  
-  if (!existingUsers.empty) {
-    const existingUser = existingUsers.docs[0].data() as WaitlistUser;
-    
-    // Re-subscribe existing user and send magic link
-    const userDocRef = doc(db, 'waitlist', existingUsers.docs[0].id);
-    await setDoc(userDocRef, {
-      subscribed: true // Re-subscribe them to emails
-    }, { merge: true });
-    
-    await sendMagicLinkEmail(email, existingUser.magicToken);
-    
-    // Return success with flag indicating existing user
-    return { success: true, isExistingUser: true };
-  }
-
-  // If referral code provided, validate it exists
-  if (referralCode && referralCode.trim()) {
-    const isValidReferral = await validateReferralCode(referralCode);
-    if (!isValidReferral) {
-      throw new Error('Invalid referral code. Please check the code and try again.');
-    }
-  }
-
-  const userReferralCode = generateReferralCode();
-  const magicToken = generateMagicToken();
-  
-  const userId = doc(usersRef).id;
-  const userData = {
-    id: userId,
-    email,
-    referralCode: userReferralCode,
-    referredBy: referralCode?.trim().toUpperCase() || null,
-    points: 0, // No points until email is verified via magic link
-    joinedAt: serverTimestamp(),
-    magicToken,
-    emailVerified: false,
-    referralUsed: false, // Flag to prevent multiple referral updates
-    subscribed: true // Automatically subscribe to email updates
-  };
-
-  // Add new user (unverified)
-  await setDoc(doc(usersRef, userId), userData);
-  
-  // Send magic link email via Firebase extension
-  await sendMagicLinkEmail(email, magicToken);
-  
-  return { success: true, isExistingUser: false };
-}
-
-// Verify email and activate user on dashboard load
+// Verify email and activate user using Firebase Function
 export async function verifyEmailAndActivateUser(magicToken: string): Promise<WaitlistUser | null> {
   try {
-    const usersRef = collection(db, 'waitlist');
-    const userQuery = query(usersRef, where('magicToken', '==', magicToken));
-    const userDocs = await getDocs(userQuery);
+    const verifyUserEmailFn = getCallableFunction('verifyUserEmail');
+    const result = await verifyUserEmailFn({ magicToken });
+    const data = result.data as { success: boolean; user?: WaitlistUser };
     
-    if (userDocs.empty) {
-      throw new Error('Invalid access token');
+    if (data.success && data.user) {
+      return data.user;
     }
-
-    const userDoc = userDocs.docs[0];
-    const userData = userDoc.data() as WaitlistUser;
-
-    // If already verified, just return the user data
-    if (userData.emailVerified) {
-      return userData;
-    }
-
-    // Verify email and give points (this can only happen once due to security rules)
-    const batch = writeBatch(db);
     
-    let pointsToAdd = 1; // Base point for joining
-    
-    // Update user as verified and give initial point
-    const userUpdate: any = {
-      emailVerified: true,
-      points: pointsToAdd
-    };
-
-    // If user was referred and hasn't used referral yet, give extra point and update referrer
-    if (userData.referredBy && !userData.referralUsed) {
-      pointsToAdd = 2; // 1 for joining + 1 for being referred
-      userUpdate.points = pointsToAdd;
-      userUpdate.referralUsed = true;
-      
-      // Find and update referrer
-      const referrerQuery = query(usersRef, where('referralCode', '==', userData.referredBy));
-      const referrerDocs = await getDocs(referrerQuery);
-      
-      if (!referrerDocs.empty) {
-        const referrerDoc = referrerDocs.docs[0];
-        // Give referrer a point
-        batch.update(referrerDoc.ref, {
-          points: increment(1)
-        });
-      }
-    }
-
-    batch.update(userDoc.ref, userUpdate);
-    await batch.commit();
-    
-    // Return updated user data
-    return { ...userData, ...userUpdate };
-  } catch (error) {
+    return null;
+  } catch (error: any) {
     console.error('Error verifying email:', error);
-    throw error;
+    throw new Error(error.message || 'Invalid access token');
   }
 }
 
-// Get user by magic token
+// Get user by magic token using direct Firestore read (truly secure via document ID)
 export async function getUserByMagicToken(token: string): Promise<WaitlistUser | null> {
   try {
-    const usersRef = collection(db, 'waitlist');
-    const userQuery = query(usersRef, where('magicToken', '==', token));
-    const userDocs = await getDocs(userQuery);
+    if (typeof window === 'undefined') {
+      // Server-side: can't access Firestore directly
+      return null;
+    }
+
+    // Direct document access using magic token as document ID - truly secure!
+    const userDocRef = doc(db, 'waitlist', token);
+    const userDoc = await getDoc(userDocRef);
     
-    if (userDocs.empty) {
+    if (!userDoc.exists()) {
       return null;
     }
     
-    return userDocs.docs[0].data() as WaitlistUser;
-  } catch (error) {
+    const userData = userDoc.data();
+    return {
+      id: userData.id,
+      email: userData.email,
+      referralCode: userData.referralCode,
+      referredBy: userData.referredBy || null,
+      points: userData.points || 0,
+      joinedAt: userData.joinedAt,
+      emailVerified: userData.emailVerified || false,
+      subscribed: userData.subscribed !== false // default to true for backward compatibility
+    } as WaitlistUser;
+  } catch (error: any) {
+    console.error('Error getting user by token:', error);
     return null;
   }
 }
 
-// Get total waitlist count
+// Get total waitlist count using direct Firestore read (public stats)
 export async function getWaitlistCount(): Promise<number> {
   try {
-    const usersRef = collection(db, 'waitlist');
-    const snapshot = await getDocs(usersRef);
-    return snapshot.size;
+    if (typeof window === 'undefined') {
+      // Server-side: return 0
+      return 0;
+    }
+
+    const statsRef = doc(db, 'stats', 'waitlist');
+    const statsDoc = await getDoc(statsRef);
+    
+    if (!statsDoc.exists()) {
+      return 0;
+    }
+    
+    const data = statsDoc.data();
+    return data?.totalSignups || 0;
   } catch (error) {
     console.error('Error fetching waitlist count:', error);
     return 0; // Return 0 on error
   }
 }
 
-// This function is no longer needed - we use magic links instead
-// Keeping for backwards compatibility if needed
-export async function sendVerificationEmail(email: string, verificationToken: string): Promise<void> {
-  // This function is deprecated - use addToWaitlist which sends magic links
-}
-
-// Send magic link email using Firebase Trigger Email extension
-export async function sendMagicLinkEmail(email: string, magicToken: string): Promise<void> {
-  console.log('🚀 sendMagicLinkEmail called with:', { email, magicToken });
-  
+// Unsubscribe user from emails using magic token (secure direct Firestore access)
+export async function unsubscribeUser(token: string): Promise<{ success: boolean; message: string }> {
   try {
-    const magicLink = generateMagicLink(magicToken);
-    console.log('🔗 Generated magic link:', magicLink);
-    
-    // Add email document to trigger the Firebase extension
-    const mailRef = collection(db, 'mail');
-    console.log('📧 Mail collection reference created');
-    
-    const emailDoc = {
-        to: [email],
-        message: {
-        subject: '🎰 Access Your Grabbit Waitlist Dashboard',
-        html: `
-            <!DOCTYPE html>
-            <html>
-            <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <style>
-                body { 
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-                margin: 0; 
-                padding: 0; 
-                background: linear-gradient(135deg, #ff6b35, #ff8c42);
-                color: #333;
-                }
-                .container { 
-                max-width: 600px; 
-                margin: 0 auto; 
-                background: white; 
-                border-radius: 16px; 
-                overflow: hidden; 
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-                }
-                .header { 
-                background: linear-gradient(135deg, #ff6b35, #ff8c42); 
-                padding: 40px 30px; 
-                text-align: center; 
-                color: white; 
-                }
-                .header h1 { 
-                margin: 0; 
-                font-size: 28px; 
-                font-weight: bold; 
-                }
-                .header p { 
-                margin: 10px 0 0 0; 
-                font-size: 16px; 
-                opacity: 0.9; 
-                }
-                .content { 
-                padding: 40px 30px; 
-                text-align: center; 
-                }
-                .content h2 { 
-                color: #ff6b35; 
-                margin: 0 0 20px 0; 
-                font-size: 24px; 
-                }
-                .content p { 
-                font-size: 16px; 
-                line-height: 1.6; 
-                margin: 0 0 20px 0; 
-                color: #666; 
-                }
-                .button { 
-                display: inline-block; 
-                background: linear-gradient(135deg, #ff6b35, #ff8c42); 
-                color: white !important; 
-                padding: 16px 32px; 
-                text-decoration: none; 
-                border-radius: 50px; 
-                font-weight: bold; 
-                font-size: 16px; 
-                margin: 20px 0;
-                box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-                }
-                .features { 
-                background: #f8f9fa; 
-                padding: 30px; 
-                border-radius: 12px; 
-                margin: 20px 0; 
-                }
-                .features h3 { 
-                color: #ff6b35; 
-                margin: 0 0 15px 0; 
-                }
-                .features ul { 
-                list-style: none; 
-                padding: 0; 
-                margin: 0; 
-                }
-                .features li { 
-                padding: 8px 0; 
-                border-bottom: 1px solid #eee; 
-                }
-                .features li:last-child { 
-                border-bottom: none; 
-                }
-                .footer { 
-                background: #f8f9fa; 
-                padding: 30px; 
-                text-align: center; 
-                font-size: 14px; 
-                color: #666; 
-                }
-                .link-text { 
-                word-break: break-all; 
-                font-size: 12px; 
-                color: #999; 
-                margin-top: 20px; 
-                }
-            </style>
-            </head>
-            <body>
-            <div class="container">
-                <div class="header">
-                <h1>Welcome to Grabbit!</h1>
-                <p>Your waitlist registration is almost complete</p>
-                </div>
-                
-                <div class="content">
-                <h2>Click to Access Your Dashboard</h2>
-                <p>Hi there!</p>
-                <p>Here's your secure access link to your Grabbit waitlist dashboard. If you're already registered, we've re-subscribed you to receive important updates about our launch!</p>
-                
-                <a href="${magicLink}" class="button">
-                    Access My Dashboard & Get Tickets
-                </a>
-                
-                <div class="features">
-                    <h3>What's in your dashboard?</h3>
-                    <ul>
-                    <li>View your raffle tickets and entries</li>
-                    <li>See extra tickets from referrals</li>
-                    <li>Get your referral code to share with friends</li>
-                    <li>Check your position on the waitlist</li>
-                    <li>Track your chances to win $10 credit</li>
-                    </ul>
-                </div>
-                
-                <p><strong>Remember:</strong> 5 lucky winners will receive $10 Grabbit credit when we launch! 🚀</p>
-                
-                <div class="link-text">
-                    If the button doesn't work, copy and paste this link:<br>
-                    ${magicLink}
-                </div>
-                </div>
-                
-                <div class="footer">
-                <p>This email was sent to ${email} because you signed up for the Grabbit waitlist.</p>
-                <p><strong>Grabbit</strong> - Community-powered delivery, coming soon!</p>
-                <p>
-                  <a href="${generateUnsubscribeLink(email)}&confirm=true" style="color: #999; text-decoration: underline; font-size: 12px;">Unsubscribe</a>
-                </p>
-                </div>
-            </div>
-            </body>
-            </html>
-        `,
-        text: `
-            Welcome to Grabbit!
-            
-            Here's your secure access link to your Grabbit waitlist dashboard. If you're already registered, we've re-subscribed you to receive important updates about our launch!
-            
-            ${magicLink}
-            
-            What happens when you click?
-            - View your raffle tickets and entries
-            - See extra tickets from referrals  
-            - Get your referral code to share with friends
-            - Check your position on the waitlist
-            - Track your chances to win $10 credit
-            
-            Remember: 5 lucky winners will receive $10 Grabbit credit when we launch!
-            
-            If the link doesn't work, copy and paste it into your browser.
-            
-            Thanks,
-            The Grabbit Team
-            
-            Unsubscribe: ${generateUnsubscribeLink(email)}&confirm=true
-        `
-        }
-    };
-        
-    console.log('📝 Email document structure:', JSON.stringify(emailDoc, null, 2));
-    
-    // Create document with generated ID
-    const docRef = doc(mailRef);
-    console.log('📄 Document reference created with ID:', docRef.id);
-    
-    await setDoc(docRef, emailDoc);
-    console.log('✅ Email document successfully added to Firestore');
-    
-    // Check if document was actually created
-    setTimeout(async () => {
-      try {
-        console.log('🔍 Checking if email document exists in Firestore...');
-        const allDocs = await getDocs(mailRef);
-        console.log(`📊 Total documents in mail collection: ${allDocs.size}`);
-        
-        allDocs.forEach((doc) => {
-          console.log(`📄 Document ${doc.id}:`, doc.data());
-        });
-      } catch (checkError) {
-        console.error('❌ Error checking mail documents:', checkError);
-      }
-    }, 2000);
-    
-  } catch (error) {
-    console.error('❌ Error sending magic link email:', error);
-    // Don't throw error to avoid breaking the signup flow
-  }
-}
+    if (typeof window === 'undefined') {
+      // Server-side: not supported
+      return { 
+        success: false, 
+        message: 'Unsubscribe not available on server side.' 
+      };
+    }
 
-// Unsubscribe user from email communications
-export async function unsubscribeUser(email: string): Promise<{ success: boolean; message: string }> {
-  try {
-    const usersRef = collection(db, 'waitlist');
-    const userQuery = query(usersRef, where('email', '==', email));
-    const userDocs = await getDocs(userQuery);
+    // Direct document access using magic token as document ID
+    const userDocRef = doc(db, 'waitlist', token);
+    const userDoc = await getDoc(userDocRef);
     
-    if (userDocs.empty) {
-      return { success: false, message: 'Email not found in our system.' };
+    if (!userDoc.exists()) {
+      return { 
+        success: false, 
+        message: 'Invalid unsubscribe link. Please contact support if you continue to receive emails.' 
+      };
     }
     
-    const userDoc = userDocs.docs[0];
-    await setDoc(doc(db, 'waitlist', userDoc.id), {
-      subscribed: false
-    }, { merge: true });
+    const userData = userDoc.data();
     
-    return { success: true, message: 'You have been successfully unsubscribed from email communications.' };
-  } catch (error) {
+    // Check if already unsubscribed
+    if (userData.subscribed === false) {
+      return { 
+        success: true, 
+        message: 'You are already unsubscribed from email communications.' 
+      };
+    }
+    
+    // Update subscription status - simple update since document ID proves ownership
+    await updateDoc(userDocRef, {
+      subscribed: false
+    });
+    
+    return { 
+      success: true, 
+      message: 'You have been successfully unsubscribed from email communications.' 
+    };
+  } catch (error: any) {
     console.error('Error unsubscribing user:', error);
-    return { success: false, message: 'An error occurred while processing your unsubscribe request.' };
+    return { 
+      success: false, 
+      message: 'An error occurred while processing your unsubscribe request. Please try again.' 
+    };
   }
 }
 
-// Generate unsubscribe link
-export function generateUnsubscribeLink(email: string): string {
+// Generate unsubscribe link with magic token (client-side only)
+export function generateUnsubscribeLink(magicToken: string): string {
   if (typeof window !== 'undefined') {
-    return `${window.location.origin}/unsubscribe?email=${encodeURIComponent(email)}`;
+    return `${window.location.origin}/unsubscribe?token=${encodeURIComponent(magicToken)}`;
   }
-  return `/unsubscribe?email=${encodeURIComponent(email)}`;
+  return `/unsubscribe?token=${encodeURIComponent(magicToken)}`;
+}
+
+// Deprecated functions - keeping for backward compatibility but they now use Firebase Functions
+
+// This function is deprecated - use addToWaitlist which now uses Firebase Functions
+export async function sendVerificationEmail(email: string, verificationToken: string): Promise<void> {
+  // This function is deprecated - use addToWaitlist which handles email sending via Firebase Functions
+  console.warn('sendVerificationEmail is deprecated. Use addToWaitlist instead.');
+}
+
+// This function is deprecated - email sending is now handled by Firebase Functions
+export async function sendMagicLinkEmail(email: string, magicToken: string): Promise<void> {
+  // This function is deprecated - email sending is now handled securely by Firebase Functions
+  console.warn('sendMagicLinkEmail is deprecated. Email sending is now handled by Firebase Functions.');
+}
+
+// These functions are no longer available for security reasons:
+// - validateReferralCode (now handled server-side)
+// - generateReferralCode (now handled server-side)
+// - generateMagicToken (now handled server-side)
+
+// Generate referral code (for display purposes only - actual codes are generated server-side)
+export function generateReferralCode(): string {
+  console.warn('generateReferralCode should only be used for display. Real codes are generated server-side.');
+  return Math.random().toString(36).substring(2, 8).toUpperCase();
+}
+
+// Generate magic token (for display purposes only - actual tokens are generated server-side)
+export function generateMagicToken(): string {
+  console.warn('generateMagicToken should only be used for display. Real tokens are generated server-side.');
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
+
+// Validate referral code (now handled server-side during signup)
+export async function validateReferralCode(referralCode: string): Promise<boolean> {
+  console.warn('validateReferralCode is now handled server-side during signup for security.');
+  // For backward compatibility, return true - real validation happens in Firebase Function
+  return true;
 }

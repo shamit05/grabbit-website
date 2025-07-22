@@ -8,32 +8,39 @@ import { unsubscribeUser } from '../lib/waitlist'
 export default function UnsubscribeContent() {
   const searchParams = useSearchParams()
   const [email, setEmail] = useState('')
+  const [userEmail, setUserEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
   const [isClient, setIsClient] = useState(false)
+  const [token, setToken] = useState('')
 
   useEffect(() => {
     setIsClient(true)
+    const tokenParam = searchParams?.get('token')
     const emailParam = searchParams?.get('email')
-    const autoUnsubscribe = searchParams?.get('confirm')
     
-    if (emailParam) {
+    if (tokenParam) {
+      // New token-based unsubscribe
+      setToken(tokenParam)
+      handleTokenUnsubscribe(tokenParam)
+    } else if (emailParam) {
+      // Legacy email-based unsubscribe (for backward compatibility)
       setEmail(decodeURIComponent(emailParam))
+      const autoUnsubscribe = searchParams?.get('confirm')
       
-      // Auto-unsubscribe if confirm=true in URL
       if (autoUnsubscribe === 'true') {
-        handleAutoUnsubscribe(decodeURIComponent(emailParam))
+        handleLegacyUnsubscribe(decodeURIComponent(emailParam))
       }
     }
   }, [searchParams])
 
-  const handleAutoUnsubscribe = async (emailAddress: string) => {
+  const handleTokenUnsubscribe = async (magicToken: string) => {
     setLoading(true)
     setError('')
 
     try {
-      const result = await unsubscribeUser(emailAddress)
+      const result = await unsubscribeUser(magicToken)
       if (result.success) {
         setSuccess(true)
       } else {
@@ -46,28 +53,15 @@ export default function UnsubscribeContent() {
     }
   }
 
+  const handleLegacyUnsubscribe = async (emailAddress: string) => {
+    // Note: Legacy email unsubscribe is no longer supported for security
+    setError('This unsubscribe link format is no longer supported. Please contact support.')
+  }
+
   const handleUnsubscribe = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!email.trim()) {
-      setError('Please enter your email address')
-      return
-    }
-
-    setLoading(true)
-    setError('')
-
-    try {
-      const result = await unsubscribeUser(email.trim())
-      if (result.success) {
-        setSuccess(true)
-      } else {
-        setError(result.message)
-      }
-    } catch (error) {
-      setError('An error occurred while processing your request')
-    } finally {
-      setLoading(false)
-    }
+    // Manual form unsubscribe is no longer supported for security
+    setError('Manual unsubscribe is no longer available. Please use the link from your email.')
   }
 
   if (loading) {
@@ -93,6 +87,9 @@ export default function UnsubscribeContent() {
           </div>
           <h1>Successfully Unsubscribed</h1>
           <p>You have been removed from our email list. You will no longer receive promotional or marketing emails from Grabbit.</p>
+          {userEmail && (
+            <p className="user-email">Email address: <strong>{userEmail}</strong></p>
+          )}
           <p>If you change your mind, you can always rejoin our waitlist.</p>
           <div className="unsubscribe-actions">
             <Link href="/" className="btn-primary">Back to Home</Link>
@@ -118,48 +115,33 @@ export default function UnsubscribeContent() {
           <i className="fas fa-envelope-open"></i>
         </div>
         <h1>Unsubscribe from Emails</h1>
-        <p>We're sorry to see you go! Enter your email below to unsubscribe from all Grabbit communications.</p>
-
-        <form onSubmit={handleUnsubscribe} className="unsubscribe-form">
-          <div className="form-group">
-            <label htmlFor="email">Email Address</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email address"
-              required
-              disabled={loading}
-              className="form-input"
-            />
-          </div>
-
-          {error && (
-            <div className="error-message">
-              <i className="fas fa-exclamation-triangle"></i>
-              {error}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="btn-primary unsubscribe-btn"
-          >
-            {loading ? (
-              <>
-                <i className="fas fa-spinner fa-spin"></i>
-                Processing...
-              </>
-            ) : (
-              'Unsubscribe'
+        
+        {token ? (
+          <div>
+            <p>Processing your unsubscribe request...</p>
+            {error && (
+              <div className="error-message">
+                <i className="fas fa-exclamation-triangle"></i>
+                {error}
+              </div>
             )}
-          </button>
-        </form>
+          </div>
+        ) : (
+          <div>
+            <p>To unsubscribe, please use the link provided in your email.</p>
+            <p>Manual unsubscribe is no longer available for security reasons.</p>
+            
+            {error && (
+              <div className="error-message">
+                <i className="fas fa-exclamation-triangle"></i>
+                {error}
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="unsubscribe-note">
-          <p>Note: This will remove you from all future email communications from Grabbit, including product updates and promotional emails.</p>
+          <p>Note: Unsubscribing will remove you from all future email communications from Grabbit, including product updates and promotional emails.</p>
         </div>
 
         <div className="unsubscribe-actions">
